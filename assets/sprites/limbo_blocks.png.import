@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvipajcqi5en0"
-path="res://.godot/imported/fruit.png-3735163b668af10c2b35b52cba81b68a.ctex"
+uid="uid://bmpm4gdmcm8am"
+path="res://.godot/imported/limbo_blocks.png-1ef7463b8f43225316ae477cc106a17c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fruit.png"
-dest_files=["res://.godot/imported/fruit.png-3735163b668af10c2b35b52cba81b68a.ctex"]
+source_file="res://assets/sprites/limbo_blocks.png"
+dest_files=["res://.godot/imported/limbo_blocks.png-1ef7463b8f43225316ae477cc106a17c.ctex"]
 
 [params]
 
