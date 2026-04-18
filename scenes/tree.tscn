@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://caeblm5qbh0wt"]
+
+[ext_resource type="Texture2D" uid="uid://b0py6hchui7fj" path="res://assets/sprites/Tree.png" id="1_avsvi"]
+[ext_resource type="Script" uid="uid://ce2q8yqfsi61h" path="res://assets/scripts/tree.gd" id="1_vplca"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vplca"]
+atlas = ExtResource("1_avsvi")
+region = Rect2(240, 0, 240, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_viusy"]
+atlas = ExtResource("1_avsvi")
+region = Rect2(480, 0, 240, 720)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qd6xs"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vplca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_viusy")
+}],
+"loop": true,
+"name": &"raise",
+"speed": 0.3
+}]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=958153222]
+script = ExtResource("1_vplca")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1160713996]
+sprite_frames = SubResource("SpriteFrames_qd6xs")
+animation = &"raise"
+frame_progress = 0.07212744
