@@ -7,7 +7,8 @@
 size = Vector2(116, 110)
 
 [node name="RigidBody2D" type="RigidBody2D" unique_id=1255913011]
-position = Vector2(5, -63)
+position = Vector2(-1, -14.000001)
+scale = Vector2(0.16000004, 0.16000004)
 collision_layer = 2
 script = ExtResource("1_x1exk")
 
