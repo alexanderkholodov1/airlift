@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dvd1k6gd3btej"
-path="res://.godot/imported/Airlift beta.png-e484297ea844025d7efc3c84010957e5.ctex"
+uid="uid://de6g0sey1768s"
+path="res://.godot/imported/Airlift beta (2).png-212a8cc81f75c4e4dd7d465b56294aab.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Airlift beta.png"
-dest_files=["res://.godot/imported/Airlift beta.png-e484297ea844025d7efc3c84010957e5.ctex"]
+source_file="res://assets/sprites/Airlift beta (2).png"
+dest_files=["res://.godot/imported/Airlift beta (2).png-212a8cc81f75c4e4dd7d465b56294aab.ctex"]
 
 [params]
 
