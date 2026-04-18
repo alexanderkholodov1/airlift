@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://c5yoknqgxld1t"]
+
+[ext_resource type="Texture2D" uid="uid://de6g0sey1768s" path="res://assets/sprites/Airlift beta (2).png" id="1_lj8jo"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2brh"]
+atlas = ExtResource("1_lj8jo")
+region = Rect2(0, 0, 142, 180)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nckey"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2brh")
+}],
+"loop": true,
+"name": &"IDLE",
+"speed": 15.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dn4c7"]
+size = Vector2(42, 77.5)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=564503545]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1696197170]
+position = Vector2(10, -92)
+sprite_frames = SubResource("SpriteFrames_nckey")
+animation = &"IDLE"
+frame_progress = 0.17298962
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=316941371]
+position = Vector2(-1, -50)
+shape = SubResource("RectangleShape2D_dn4c7")
