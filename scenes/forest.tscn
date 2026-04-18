@@ -140,6 +140,7 @@ sources/0 = SubResource("TileSetAtlasSource_0afsd")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bgcxa"]
 texture = ExtResource("1_xijx7")
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
