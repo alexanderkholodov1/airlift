@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvipajcqi5en0"
-path="res://.godot/imported/fruit.png-3735163b668af10c2b35b52cba81b68a.ctex"
+uid="uid://btb1ft7mq8plf"
+path="res://.godot/imported/limbo_trees.png-ca1d3c89710fbaee66d81bd1b3161885.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fruit.png"
-dest_files=["res://.godot/imported/fruit.png-3735163b668af10c2b35b52cba81b68a.ctex"]
+source_file="res://assets/sprites/limbo_trees.png"
+dest_files=["res://.godot/imported/limbo_trees.png-ca1d3c89710fbaee66d81bd1b3161885.ctex"]
 
 [params]
 
