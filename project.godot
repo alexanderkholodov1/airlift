@@ -15,6 +15,10 @@ run/main_scene="uid://xkoeivep6wkv"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+PurificationManager="*res://systems/purification/purification_manager.gd"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/github_copilot/plugin.cfg")

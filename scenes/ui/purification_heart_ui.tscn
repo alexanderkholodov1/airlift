@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://systems/purification/ui/purification_heart_ui.gd" id="1_n80rb"]
+[ext_resource type="Shader" path="res://systems/purification/ui/heart_quadrants.gdshader" id="2_5t2as"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ooqm5"]
+shader = ExtResource("2_5t2as")
+
+[node name="PurificationHeartUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 280.0
+script = ExtResource("1_n80rb")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 308.0
+offset_bottom = 266.0
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+text = "Corazon de Purificacion"
+
+[node name="HeartFill" type="ColorRect" parent="Panel/Margin/VBox"]
+custom_minimum_size = Vector2(220, 168)
+layout_mode = 2
+material = SubResource("ShaderMaterial_ooqm5")
+color = Color(1, 1, 1, 1)
+
+[node name="Stats" type="GridContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 4
+
+[node name="IraText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Ira"
+
+[node name="IraValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"
+
+[node name="PerezaText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Pereza"
+
+[node name="PerezaValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"
+
+[node name="GulaText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Gula"
+
+[node name="GulaValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"
+
+[node name="SoberbiaText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Soberbia"
+
+[node name="SoberbiaValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"
