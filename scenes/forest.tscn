@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://wp3tnjrkrjcs"]
+
+[node name="Forest" type="Node2D" unique_id=1302773227]
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=197546193]
+position = Vector2(0, -323)
