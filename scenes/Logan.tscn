@@ -1,6 +1,8 @@
+[gd_scene format=3 uid="uid://c5yoknqgxld1t"]
 [gd_scene format=3 uid="uid://csbp73uvwj2pn"]
 
-[ext_resource type="Texture2D" uid="uid://de6g0sey1768s" path="res://assets/sprites/Airlift beta (2).png" id="1_jx228"]
+[ext_resource type="Texture2D" uid="uid://de6g0sey1768s" path="res://assets/sprites/Airlift beta (2).png" id="1_lj8jo"]
+[ext_resource type="Script" uid="uid://dmqkfckdgpxhg" path="res://scripts/logan.gd" id="1_v4qkr"]
 
 [sub_resource type="GDScript" id="GDScript_jx228"]
 script/source = "extends CharacterBody2D
