@@ -6,6 +6,10 @@ extends CharacterBody2D
 @export var anim: AnimatedSprite2D
 var speed: float = 140.0	
 
+var puede_trepar: bool = false
+var trepando: bool = false
+var climb_speed: float = 120.0
+
 # ==========================================
 # VARIABLES DE INTERACCIÓN (OBJETOS)
 # ==========================================
@@ -17,71 +21,106 @@ var objeto_en_mano = null
 # FÍSICAS Y MOVIMIENTO CONSTANTE
 # ==========================================
 func _physics_process(delta):
-	# 1. Aplicar Gravedad (Godot 4.3+)
-	velocity += get_gravity() * delta
 	
-	# 2 . Trepar
-	
-	# 3. Movimiento horizontal siguiendo al mouse
-	
+	# 1. VERIFICAR SI ESTAMOS TREPANDO
+	# Nos enganchamos a la liana si podemos trepar y mantenemos el click derecho
+	if puede_trepar and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+		trepando = true
 		
+	# Si salimos del área de la liana, dejamos de trepar
+	if not puede_trepar:
+		trepando = false
+
+	# ==========================================
+	# ESTADO: TREPANDO (Sin gravedad, sube con arrastre de click derecho)
+	# ==========================================
+	if trepando:
+		velocity.x = 0 # No nos movemos hacia los lados en la liana
 		
-	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
-		var direccion_mouse = get_local_mouse_position().x
-	
-	# Si el mouse está a más de 10 píxeles a la derecha
-		if direccion_mouse > 10:
-			velocity.x = speed
-			anim.flip_h = true # Cambia esto a false si tu personaje camina de espaldas
-		# Si está a la izquierda
-		elif direccion_mouse < -10:
-			velocity.x = -speed
-			anim.flip_h = false # Cambia esto a true si tu personaje camina de espaldas
+		# Leer posición vertical del mouse MIENTRAS mantenemos click derecho
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+			var direccion_mouse_y = get_local_mouse_position().y
+			
+			if direccion_mouse_y < -10: # Mouse arriba del personaje
+				velocity.y = -climb_speed
+			elif direccion_mouse_y > 10: # Mouse abajo del personaje
+				velocity.y = climb_speed
+			else:
+				velocity.y = 0
+		else:
+			# Si soltamos el click derecho, nos quedamos quietos colgando
+			velocity.y = 0
+			
+		# MECÁNICA DE SALIDA: Nos soltamos de la liana con el click izquierdo (caminar)
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			trepando = false
+			if velocity.y < 0:
+				velocity.y = 0
+
+	# ==========================================
+	# ESTADO: NORMAL (Gravedad + Caminar con click izquierdo)
+	# ==========================================
+	else:
+		# APLICAR GRAVEDAD
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+			
+		# Caminar arrastrando el mouse con el click izquierdo
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+			var direccion_mouse = get_local_mouse_position().x
+			
+			if direccion_mouse > 10:
+				velocity.x = speed
+				anim.flip_h = true # Mirar a la derecha
+			elif direccion_mouse < -10:
+				velocity.x = -speed
+				anim.flip_h = false  # Mirar a la izquierda
+			else:
+				velocity.x = 0
 		else:
 			velocity.x = 0
-	else:
-		velocity.x = 0 
-		
-	# 4. Aplicar el movimiento
+			
+	# 2. APLICAR EL MOVIMIENTO FINAL
 	move_and_slide()
 	
-	# 5. Control de animaciones
-	if velocity.x != 0:
+	# 3. CONTROL DE ANIMACIONES
+	if trepando:
+		pass
+	elif velocity.x != 0:
 		anim.play("Run")
 	else:
 		anim.play("IDLE")
 
 # ==========================================
-# DETECCIÓN DE CLICKS (AGARRAR / LANZAR)
+# DETECCIÓN DE CLICKS 
 # ==========================================
 func _input(event):
-	# Detectar solo Click Derecho
+	# Detectar Click Derecho PARA OBJETOS
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
-		if event.pressed: # Justo al presionar
-			if objeto_en_mano == null:
-				intentar_agarrar_objeto()
-			else:
-				lanzar_objeto()
+		if event.pressed:
+			# IMPORTANTE: Solo agarramos o lanzamos cosas si NO estamos en una liana
+			if not puede_trepar:
+				if objeto_en_mano == null:
+					intentar_agarrar_objeto()
+				else:
+					lanzar_objeto()
 
+# ==========================================
+# FUNCIONES DE OBJETOS
+# ==========================================
 func intentar_agarrar_objeto():
-	# print("Intentando agarrar...")
 	var cuerpos = zona_deteccion.get_overlapping_bodies()
 	
 	for cuerpo in cuerpos:
-		# Verificamos si el objeto tiene nuestro código para ser agarrado
 		if cuerpo.has_method("ser_agarrado"):
 			objeto_en_mano = cuerpo
-			# Le pasamos "self" para que el objeto sepa quién es el jugador
 			objeto_en_mano.ser_agarrado(self) 
-			# print("¡Objeto agarrado con éxito!")
 			break
 
 func lanzar_objeto():
 	if objeto_en_mano:
-		# Calculamos dirección desde el personaje hacia el mouse
 		var direccion = (get_global_mouse_position() - global_position).normalized()
 		var fuerza_lanzamiento = 700.0
 		
-		# Le damos la orden al objeto de soltarse y salir volando
 		objeto_en_mano.ser_soltado(direccion * fuerza_lanzamiento)
 		objeto_en_mano = null
