@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bdoumg4ndt3yn"]
 
-[ext_resource type="Texture2D" uid="uid://cpnjlcp1jmmuu" path="res://icon.svg" id="1_m16eg"]
 [ext_resource type="Script" uid="uid://cj60lfwu011st" path="res://assets/scripts/ladrillo.gd" id="1_x1exk"]
+[ext_resource type="Texture2D" uid="uid://bxscm6texb2l2" path="res://assets/sprites/Ladrillo.png" id="2_x1exk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1exk"]
-size = Vector2(116, 110)
+size = Vector2(203.89108, 110)
 
 [node name="RigidBody2D" type="RigidBody2D" unique_id=1255913011]
 position = Vector2(-1, -14.000001)
@@ -13,7 +13,9 @@ collision_layer = 2
 script = ExtResource("1_x1exk")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=613378994]
-texture = ExtResource("1_m16eg")
+scale = Vector2(2.6333542, 2.6333542)
+texture = ExtResource("2_x1exk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=884467631]
+scale = Vector2(0.30653614, 0.30653614)
 shape = SubResource("RectangleShape2D_x1exk")

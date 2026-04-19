@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://d2ut5m0rv6kl2"]
+
+[ext_resource type="Texture2D" uid="uid://cj6jmmjocgcn0" path="res://assets/sprites/Liana.png" id="1_7jxo6"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ercsu"]
+texture = ExtResource("1_7jxo6")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16.934212, -20.697372, 16.5579, 33.115795, -15.428955, 33.115795, -14.676323, -33.1158, 17.310532, -32.363167)
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3knxq"]
+physics_layer_0/collision_layer = 4
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_ercsu")
+
+[node name="Lianas" type="TileMapLayer" unique_id=684243844]
+modulate = Color(1.2971561, 0.28154305, 1.0319324, 1)
+tile_map_data = PackedByteArray(0, 0, 253, 255, 253, 255, 0, 0, 0, 0, 0, 0, 0, 0, 253, 255, 249, 255, 0, 0, 0, 0, 0, 0, 0, 0, 253, 255, 245, 255, 0, 0, 0, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_3knxq")

@@ -4,7 +4,7 @@ extends CharacterBody2D
 # VARIABLES DE MOVIMIENTO Y ANIMACIÓN
 # ==========================================
 @export var anim: AnimatedSprite2D
-var speed: float = 140.0	
+var speed: float = 170.0	
 
 var puede_trepar: bool = false
 var trepando: bool = false
@@ -127,11 +127,9 @@ func lanzar_objeto():
 
 
 func _on_liana_detector_body_entered(body: Node2D) -> void:
-	pass # Replace with function body.
 	puede_trepar = true
 
 
 func _on_liana_detector_body_exited(body: Node2D) -> void:
-	pass # Replace with function body.
 	puede_trepar = false
 	trepando = false # Nos soltamos obligatoriamente
