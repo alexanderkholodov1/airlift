@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://qofik6eqi5f3" path="res://assets/sprites/Blockblast.png" id="6_i1yi8"]
 [ext_resource type="Texture2D" uid="uid://0ug6pd5lm5i6" path="res://assets/sprites/Grass up.png" id="7_qm7rg"]
 [ext_resource type="Texture2D" uid="uid://sdsa62xmb3sw" path="res://assets/sprites/spritepaint.png" id="8_0nboi"]
-[ext_resource type="PackedScene" uid="uid://db1hhleol4j7r" path="res://scenes/Liana.tscn" id="8_3knxq"]
+[ext_resource type="Texture2D" uid="uid://cj6jmmjocgcn0" path="res://assets/sprites/Liana.png" id="9_3knxq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bgcxa"]
 texture = ExtResource("1_xijx7")
@@ -436,6 +436,32 @@ physics_layer_1/collision_mask = 0
 sources/0 = SubResource("TileSetAtlasSource_bgcxa")
 sources/1 = SubResource("TileSetAtlasSource_qm7rg")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ercsu"]
+texture = ExtResource("9_3knxq")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(16.934212, -20.697372, 16.5579, 33.115795, -15.428955, 33.115795, -14.676323, -33.1158, 17.310532, -32.363167)
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_3knxq"]
+physics_layer_0/collision_layer = 4
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_ercsu")
+
 [node name="Forest" type="Node2D" unique_id=1302773227]
 position = Vector2(1115, -617)
 metadata/_edit_horizontal_guides_ = [-1016.0]
@@ -500,15 +526,6 @@ scale = Vector2(0.99999994, 1)
 tile_map_data = PackedByteArray("AAD9////AQABAAcAAAD9/wAAAQABAAgAAAD8////AQABAAcAAAD8/wAAAQABAAgAAAD7////AQABAAcAAAD7/wAAAQABAAgAAAD6////AQABAAcAAAD6/wAAAQABAAgAAAD5////AQABAAcAAAD5/wAAAQABAAgAAAD4////AQABAAcAAAD4/wAAAQABAAgAAAD3////AQABAAcAAAD3/wAAAQABAAgAAAD2////AQABAAcAAAD2/wAAAQABAAgAAAD1////AQABAAcAAAD1/wAAAQABAAgAAAD0////AQABAAcAAAD0/wAAAQABAAgAAADz////AQABAAcAAADz/wAAAQABAAgAAADy////AQABAAcAAADy/wAAAQABAAgAAADx////AQABAAcAAADx/wAAAQABAAgAAADw////AQABAAcAAADw/wAAAQABAAgAAADv////AQABAAcAAADv/wAAAQABAAgAAADu////AQABAAcAAADu/wAAAQABAAgAAAD+////AQABAAcAAAD+/wAAAQABAAgAAAD/////AQABAAcAAAD//wAAAQABAAgAAAAAAP//AQABAAcAAAAAAAAAAQABAAgAAAABAP//AQABAAcAAAABAAAAAQABAAgAAAACAP//AQABAAcAAAACAAAAAQABAAgAAAADAP//AQABAAcAAAADAAAAAQABAAgAAAAEAP//AQABAAcAAAAEAAAAAQABAAgAAAAFAP//AQABAAcAAAAFAAAAAQABAAgAAAAGAP//AQABAAcAAAAGAAAAAQABAAgAAAAHAP//AQABAAcAAAAHAAAAAQABAAgAAAAIAP//AQABAAcAAAAIAAAAAQABAAgAAAAJAP//AQABAAcAAAAJAAAAAQABAAgAAAAKAP//AQABAAcAAAAKAAAAAQABAAgAAADu/wEAAQABAAkAAADu/wIAAQABAAkAAADv/wEAAQABAAkAAADv/wIAAQABAAkAAADw/wEAAQABAAkAAADw/wIAAQABAAkAAADx/wEAAQABAAkAAADx/wIAAQABAAkAAADy/wEAAQABAAkAAADy/wIAAQABAAkAAADz/wEAAQABAAkAAADz/wIAAQABAAkAAAD0/wEAAQABAAkAAAD0/wIAAQABAAkAAAD1/wEAAQABAAkAAAD1/wIAAQABAAkAAAD2/wEAAQABAAkAAAD2/wIAAQABAAkAAAD3/wEAAQABAAkAAAD3/wIAAQABAAkAAAD4/wEAAQABAAkAAAD4/wIAAQABAAkAAAD5/wEAAQABAAkAAAD5/wIAAQABAAkAAAD6/wEAAQABAAkAAAD6/wIAAQABAAkAAAD7/wEAAQABAAkAAAD7/wIAAQABAAkAAAD8/wEAAQABAAkAAAD8/wIAAQABAAkAAAD9/wEAAQABAAkAAAD9/wIAAQABAAkAAAD+/wEAAQABAAkAAAD+/wIAAQABAAkAAAD//wEAAQABAAkAAAD//wIAAQABAAkAAAAAAAEAAQABAAkAAAAAAAIAAQABAAkAAAABAAEAAQABAAkAAAABAAIAAQABAAkAAAACAAEAAQABAAkAAAACAAIAAQABAAkAAAADAAEAAQABAAkAAAADAAIAAQABAAkAAAAEAAEAAQABAAkAAAAEAAIAAQABAAkAAAAFAAEAAQABAAkAAAAFAAIAAQABAAkAAAAGAAEAAQABAAkAAAAGAAIAAQABAAkAAAAHAAEAAQABAAkAAAAHAAIAAQABAAkAAAAIAAEAAQABAAkAAAAIAAIAAQABAAkAAAAJAAEAAQABAAkAAAAJAAIAAQABAAkAAAAKAAEAAQABAAkAAAAKAAIAAQABAAkAAADt////AQABAAoAAADt/wAAAQABAAgAAADt/wEAAQABAAkAAADt/wIAAQABAAkAAADt//v/AQAAAAEAAADt//z/AQAAAAMAAADt//3/AQABAAoAAADt//7/AQABAAoAAAA=")
 tile_set = SubResource("TileSet_yj5dr")
 
-[node name="Area2D" parent="." unique_id=640071023 instance=ExtResource("8_3knxq")]
-position = Vector2(-121, -49)
-
-[node name="Area2D2" parent="." unique_id=1710234112 instance=ExtResource("8_3knxq")]
-position = Vector2(-121, -113)
-
-[node name="Area2D3" parent="." unique_id=192313659 instance=ExtResource("8_3knxq")]
-position = Vector2(-122, -179)
-
 [node name="Frontground" type="Parallax2D" parent="." unique_id=1678465373]
 
 [node name="Grass" type="TextureRect" parent="Frontground" unique_id=164077367]
@@ -543,8 +560,12 @@ scale = Vector2(5.9327946, 5.9327946)
 texture = ExtResource("8_0nboi")
 stretch_mode = 1
 
+[node name="Lianas" type="TileMapLayer" parent="." unique_id=747879132]
+tile_map_data = PackedByteArray("AAD9//3/AAAAAAAAAAD9//n/AAAAAAAAAAD9//X/AAAAAAAAAAA=")
+tile_set = SubResource("TileSet_3knxq")
+
 [node name="Logan" parent="." unique_id=564503545 instance=ExtResource("3_yj5dr")]
-position = Vector2(-829.00006, -4)
+position = Vector2(-825.00006, -1)
 scale = Vector2(0.95040125, 0.9504013)
 
 [node name="Camera2D" type="Camera2D" parent="Logan" unique_id=197546193]

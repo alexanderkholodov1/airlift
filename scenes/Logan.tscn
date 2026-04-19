@@ -50,6 +50,9 @@ size = Vector2(42, 77.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_v4qkr"]
 radius = 55.00909
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4qkr"]
+size = Vector2(69, 96)
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=564503545 node_paths=PackedStringArray("anim")]
 script = ExtResource("1_v4qkr")
 anim = NodePath("AnimatedSprite2D")
@@ -73,3 +76,14 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=609549247]
 position = Vector2(-2, -28)
 shape = SubResource("CircleShape2D_v4qkr")
+
+[node name="LianaDetector" type="Area2D" parent="." unique_id=519302300]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LianaDetector" unique_id=655513672]
+position = Vector2(1, -51)
+shape = SubResource("RectangleShape2D_v4qkr")
+
+[connection signal="body_entered" from="LianaDetector" to="." method="_on_liana_detector_body_entered"]
+[connection signal="body_exited" from="LianaDetector" to="." method="_on_liana_detector_body_exited"]

@@ -124,3 +124,14 @@ func lanzar_objeto():
 		
 		objeto_en_mano.ser_soltado(direccion * fuerza_lanzamiento)
 		objeto_en_mano = null
+
+
+func _on_liana_detector_body_entered(body: Node2D) -> void:
+	pass # Replace with function body.
+	puede_trepar = true
+
+
+func _on_liana_detector_body_exited(body: Node2D) -> void:
+	pass # Replace with function body.
+	puede_trepar = false
+	trepando = false # Nos soltamos obligatoriamente
