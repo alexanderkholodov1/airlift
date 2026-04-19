@@ -77,7 +77,7 @@ collision_mask = 2
 position = Vector2(-2, -28)
 shape = SubResource("CircleShape2D_v4qkr")
 
-[node name="LianaDetector" type="Area2D" parent="." unique_id=519302300]
+[node name="LianaDetector" type="Area2D" parent="." unique_id=519302300 groups=["Logan"]]
 collision_layer = 0
 collision_mask = 4
 
