@@ -40,10 +40,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
-size = Vector2(9.677421, 13.709678)
+size = Vector2(23.31081, 16.216215)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xwavj"]
-size = Vector2(214, 131)
+size = Vector2(214, 90.87837)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1918269542]
 position = Vector2(-2, -91.00001)
@@ -55,7 +55,7 @@ sprite_frames = SubResource("SpriteFrames_c4w8v")
 frame_progress = 0.1414266
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=970375008]
-position = Vector2(0, 5.2419357)
+position = Vector2(0, 3.8851366)
 shape = SubResource("RectangleShape2D_md0e3")
 
 [node name="Timer" type="Timer" parent="." unique_id=105431462]
@@ -65,7 +65,7 @@ shape = SubResource("RectangleShape2D_md0e3")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=115928699]
 light_mask = 3
 visibility_layer = 3
-position = Vector2(0, 4.5)
+position = Vector2(0, 8.277031)
 shape = SubResource("RectangleShape2D_xwavj")
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=388682624]

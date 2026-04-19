@@ -1,8 +1,9 @@
-[gd_scene format=4 uid="uid://b6i14w31sb23a"]
+[gd_scene format=4 uid="uid://dpcnyaf8sp4ca"]
 
 [ext_resource type="Texture2D" uid="uid://bmpm4gdmcm8am" path="res://assets/sprites/limbo_blocks.png" id="1_0qbbe"]
 [ext_resource type="Texture2D" uid="uid://dibtj5l0l7s3g" path="res://assets/sprites/ruins.png" id="2_ojw65"]
 [ext_resource type="Script" uid="uid://baty2l1qhig7u" path="res://scripts/portal.gd" id="3_y7awv"]
+[ext_resource type="PackedScene" uid="uid://c5yoknqgxld1t" path="res://scenes/Logan.tscn" id="12_6p5sr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ci10s"]
 texture = ExtResource("1_0qbbe")
@@ -101,6 +102,9 @@ sources/0 = SubResource("TileSetAtlasSource_812x3")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_udtko"]
 size = Vector2(196, 242)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0qbbe"]
+size = Vector2(196, 242)
+
 [node name="Cavern" type="Node2D" unique_id=53808072]
 
 [node name="blocks_background" type="TileMapLayer" parent="." unique_id=1703077059]
@@ -115,12 +119,27 @@ tile_set = SubResource("TileSet_xv7dq")
 
 [node name="miscellaneous" type="TileMapLayer" parent="." unique_id=450504087]
 modulate = Color(0.78, 0.78, 0.78, 1)
-tile_map_data = PackedByteArray("AAD9/wEAAAAJAAYAAABFAAEAAAAJAAYAAAA=")
+tile_map_data = PackedByteArray("AAD9/wEAAAAJAAYAAAAIAAEAAAAJAAYAAAA=")
 tile_set = SubResource("TileSet_hkj0c")
 
-[node name="Portal" type="Area2D" parent="." unique_id=1665255889]
+[node name="CharacterBody2D" parent="." unique_id=564503545 instance=ExtResource("12_6p5sr")]
+position = Vector2(149, 203)
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=745509350]
+position = Vector2(0, -112)
+
+[node name="PortalExitForest" type="Area2D" parent="." unique_id=1665255889]
 script = ExtResource("3_y7awv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Portal" unique_id=841011389]
-position = Vector2(4169, 118)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalExitForest" unique_id=841011389]
+position = Vector2(504, 118)
 shape = SubResource("RectangleShape2D_udtko")
+
+[node name="PortalEntranceLimbo" type="Area2D" parent="." unique_id=843414010]
+position = Vector2(-143, 125)
+scale = Vector2(0.99999994, 1)
+script = ExtResource("3_y7awv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PortalEntranceLimbo" unique_id=1603404508]
+position = Vector2(-8.999939, -9)
+shape = SubResource("RectangleShape2D_0qbbe")

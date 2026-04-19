@@ -1,52 +1,11 @@
 [gd_scene format=3 uid="uid://c5yoknqgxld1t"]
-[gd_scene format=3 uid="uid://csbp73uvwj2pn"]
 
-[ext_resource type="Texture2D" uid="uid://de6g0sey1768s" path="res://assets/sprites/Airlift beta (2).png" id="1_lj8jo"]
-[ext_resource type="Script" uid="uid://dmqkfckdgpxhg" path="res://scripts/logan.gd" id="1_v4qkr"]
-
-[sub_resource type="GDScript" id="GDScript_jx228"]
-script/source = "extends CharacterBody2D
-
-
-const SPEED = 300.0
-const JUMP_VELOCITY = -400.0
-
-
-func _physics_process(delta: float) -> void:
-	# Add the gravity.
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed(\"ui_accept\") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis(\"ui_left\", \"ui_right\")
-	if direction:
-		velocity.x = direction * SPEED
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-
-	move_and_slide()
-"
+[ext_resource type="Texture2D" uid="uid://de6g0sey1768s" path="res://assets/sprites/Airlift beta (2).png" id="1_jx228"]
+[ext_resource type="Script" uid="uid://b8fq817dtseqn" path="res://scripts/logan.gd" id="1_v4qkr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g2brh"]
 atlas = ExtResource("1_jx228")
 region = Rect2(0, 0, 142, 180)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_jx228"]
-atlas = ExtResource("1_jx228")
-region = Rect2(0, 360, 142, 180)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_r1efu"]
-atlas = ExtResource("1_jx228")
-region = Rect2(176, 360, 142, 180)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_80leg"]
-atlas = ExtResource("1_jx228")
-region = Rect2(352, 360, 142, 180)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v4qkr"]
 atlas = ExtResource("1_jx228")
@@ -72,20 +31,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_jx228")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_r1efu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_80leg")
-}],
-"loop": true,
-"name": &"Jump",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_v4qkr")
 }, {
 "duration": 1.0,
@@ -102,15 +47,43 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dn4c7"]
 size = Vector2(42, 77.5)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=564503545]
-script = SubResource("GDScript_jx228")
+[sub_resource type="CircleShape2D" id="CircleShape2D_v4qkr"]
+radius = 55.00909
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v4qkr"]
+size = Vector2(69, 96)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=564503545 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_v4qkr")
+anim = NodePath("AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1696197170]
 position = Vector2(10, -92)
 sprite_frames = SubResource("SpriteFrames_nckey")
-animation = &"Jump"
-frame_progress = 0.17036052
+animation = &"Run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=316941371]
 position = Vector2(-1, -50)
 shape = SubResource("RectangleShape2D_dn4c7")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=1100743029]
+position = Vector2(0, -49)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=569707265]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=609549247]
+position = Vector2(-2, -28)
+shape = SubResource("CircleShape2D_v4qkr")
+
+[node name="LianaDetector" type="Area2D" parent="." unique_id=519302300]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LianaDetector" unique_id=655513672]
+position = Vector2(1, -51)
+shape = SubResource("RectangleShape2D_v4qkr")
+
+[connection signal="body_entered" from="LianaDetector" to="." method="_on_liana_detector_body_entered"]
+[connection signal="body_exited" from="LianaDetector" to="." method="_on_liana_detector_body_exited"]

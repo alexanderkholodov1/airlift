@@ -19,7 +19,8 @@ var current_state: State = State.WANDER
 # ==========================================
 @export var max_health: int = 3         # Golpes que aguanta el enemigo
 @export var attack_damage: int = 1      # Daño por golpe al jugador (muere a 5)
-@export var attack_range: float = 40.0  # Distancia para golpear (en píxeles globales)
+@export var attack_range: float = 12.0  # Margen extra horizontal sobre el contacto real de colisiones
+@export var attack_vertical_tolerance: float = 24.0  # Margen extra vertical sobre el contacto real
 @export var attack_cooldown: float = 1.2
 
 # ==========================================
@@ -137,7 +138,7 @@ func _process_chase() -> void:
 	var dist = global_position.distance_to(player.global_position)
 
 	# Si está cerca, atacar
-	if dist <= attack_range:
+	if _is_player_in_attack_range():
 		current_state = State.ATTACK
 		velocity.x = 0.0
 		return
@@ -159,10 +160,8 @@ func _process_attack() -> void:
 		current_state = State.WANDER
 		return
 
-	var dist = global_position.distance_to(player.global_position)
-
 	# Si el jugador se alejó, volver a perseguir
-	if dist > attack_range * 1.5:
+	if not _is_player_in_attack_range(1.5):
 		current_state = State.CHASE
 		return
 
@@ -231,6 +230,9 @@ func _deal_damage_to_player() -> void:
 	if player == null or not is_instance_valid(player):
 		return
 
+	if not _is_player_in_attack_range():
+		return
+
 	# El jugador necesita tener un método "receive_damage" 
 	# que maneje los 5 golpes antes de morir
 	if player.has_method("receive_damage"):
@@ -241,21 +243,19 @@ func _deal_damage_to_player() -> void:
 # SEÑALES DEL ÁREA DE DETECCIÓN
 # ==========================================
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	# Detectar al jugador por su clase o por grupo
-	if body is CharacterBody2D and body.name == "CharacterBody2D":
+	if _is_player_body(body):
 		player = body
-		if current_state == State.WANDER:
-			current_state = State.CHASE
-
-	# También funciona si el jugador está en el grupo "player"
-	if body.is_in_group("player"):
-		player = body
+		# Permite atravesar al enemigo sin bloqueo físico.
+		add_collision_exception_with(player)
+		player.add_collision_exception_with(self)
 		if current_state == State.WANDER:
 			current_state = State.CHASE
 
 
 func _on_detection_area_body_exited(body: Node2D) -> void:
 	if body == player:
+		remove_collision_exception_with(player)
+		player.remove_collision_exception_with(self)
 		# El jugador salió del área de visión: volver a wander
 		# (puedes cambiar esto para que persista la persecución más tiempo)
 		player = null
@@ -283,3 +283,43 @@ func _update_sprite_direction() -> void:
 		sprite.flip_h = false
 	else:
 		sprite.flip_h = true
+
+
+func _is_player_body(body: Node2D) -> bool:
+	# Permite CharacterBody2D, CharacterBody2D2, etc.
+	return body is CharacterBody2D and body.name.begins_with("CharacterBody2D")
+
+
+func _is_player_in_attack_range(multiplier: float = 1.0) -> bool:
+	if player == null or not is_instance_valid(player):
+		return false
+
+	var delta = player.global_position - global_position
+	var enemy_half_extents = _get_body_half_extents(self)
+	var player_half_extents = _get_body_half_extents(player)
+
+	var allowed_x = (enemy_half_extents.x + player_half_extents.x + attack_range) * multiplier
+	var allowed_y = (enemy_half_extents.y + player_half_extents.y + attack_vertical_tolerance) * multiplier
+
+	var horizontal_ok = absf(delta.x) <= allowed_x
+	var vertical_ok = absf(delta.y) <= allowed_y
+	return horizontal_ok and vertical_ok
+
+
+func _get_body_half_extents(body: CharacterBody2D) -> Vector2:
+	var collider: CollisionShape2D = body.get_node_or_null("CollisionShape2D")
+	if collider == null or collider.shape == null:
+		return Vector2(16.0, 16.0)
+
+	var half_extents := Vector2(16.0, 16.0)
+	var shape = collider.shape
+
+	if shape is RectangleShape2D:
+		half_extents = shape.size * 0.5
+	elif shape is CircleShape2D:
+		half_extents = Vector2.ONE * shape.radius
+	elif shape is CapsuleShape2D:
+		half_extents = Vector2(shape.radius, shape.height * 0.5 + shape.radius)
+
+	var scale_abs = body.global_scale.abs()
+	return Vector2(half_extents.x * scale_abs.x, half_extents.y * scale_abs.y)
