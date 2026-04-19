@@ -1,0 +1,291 @@
+[gd_scene format=4 uid="uid://bj4kkjyp1je8b"]
+
+[ext_resource type="Texture2D" uid="uid://bmpm4gdmcm8am" path="res://assets/sprites/limbo_blocks.png" id="1_0qbbe"]
+[ext_resource type="PackedScene" uid="uid://c5yoknqgxld1t" path="res://scenes/Logan.tscn" id="1_h5r2y"]
+[ext_resource type="Script" uid="uid://bga83ofninona" path="res://scripts/persecution/persecution_level_manager.gd" id="2_n0l3d"]
+[ext_resource type="Texture2D" uid="uid://dibtj5l0l7s3g" path="res://assets/sprites/ruins.png" id="2_ojw65"]
+[ext_resource type="Script" uid="uid://cj38pe7xyhrmb" path="res://scripts/persecution/level_populator.gd" id="3_v2a8m"]
+[ext_resource type="Script" uid="uid://baty2l1qhig7u" path="res://scripts/portal.gd" id="3_y7awv"]
+[ext_resource type="PackedScene" path="res://scenes/placeholders/hole_placeholder.tscn" id="4_j8c1t"]
+[ext_resource type="PackedScene" path="res://scenes/placeholders/cave_stalker_placeholder.tscn" id="5_p6w9s"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xw46e"]
+texture = ExtResource("1_0qbbe")
+texture_region_size = Vector2i(60, 60)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:6/0 = 0
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:7/0 = 0
+0:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:8/0 = 0
+0:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:9/0 = 0
+0:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:10/0 = 0
+0:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+1:10/0 = 0
+1:10/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+1:11/0 = 0
+1:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+0:11/0 = 0
+0:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+2:11/0 = 0
+2:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+3:11/0 = 0
+3:11/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+1:9/0 = 0
+1:9/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+1:8/0 = 0
+1:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-30, -30, 30, -30, 30, 30, -30, 30)
+1:7/0 = 0
+1:6/0 = 0
+1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-24.569384, 0, 23.636364, 0.31100464, 23.32536, 30, -23.325363, 30)
+
+[sub_resource type="TileSet" id="TileSet_xv7dq"]
+tile_size = Vector2i(60, 60)
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_xw46e")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_812x3"]
+texture = ExtResource("2_ojw65")
+texture_region_size = Vector2i(60, 60)
+1:0/size_in_atlas = Vector2i(4, 4)
+1:0/0 = 0
+2:11/0 = 0
+1:6/size_in_atlas = Vector2i(4, 5)
+1:6/0 = 0
+6:4/size_in_atlas = Vector2i(2, 8)
+6:4/0 = 0
+9:6/size_in_atlas = Vector2i(6, 5)
+9:6/0 = 0
+10:2/size_in_atlas = Vector2i(4, 2)
+10:2/0 = 0
+10:4/size_in_atlas = Vector2i(4, 1)
+10:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_hkj0c"]
+tile_size = Vector2i(60, 60)
+sources/0 = SubResource("TileSetAtlasSource_812x3")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_udtko"]
+size = Vector2(196, 242)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qbbt"]
+size = Vector2(196, 242)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(9800, 220)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform_long"]
+size = Vector2(620, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform_mid"]
+size = Vector2(430, 70)
+
+[node name="PersecutionCave" type="Node2D" unique_id=170481585]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="." unique_id=1432544986]
+color = Color(0.5, 0.42, 0.35, 1)
+
+[node name="Art" type="Node2D" parent="." unique_id=1632500403]
+z_index = -30
+z_as_relative = false
+
+[node name="BackdropFar" type="Polygon2D" parent="Art" unique_id=1211618478]
+color = Color(0.23, 0.19, 0.15, 1)
+polygon = PackedVector2Array(-2600, -1500, 6200, -1500, 6200, 1800, -2600, 1800)
+
+[node name="BackdropMid" type="Polygon2D" parent="Art" unique_id=1767328660]
+color = Color(0.34, 0.28, 0.22, 0.88)
+polygon = PackedVector2Array(-2600, -300, -2100, -380, -1600, -260, -1100, -420, -650, -250, -200, -390, 350, -280, 900, -430, 1450, -310, 2000, -450, 2550, -320, 3100, -470, 3650, -350, 4200, -430, 4800, -280, 5400, -360, 6200, -290, 6200, 900, -2600, 900)
+
+[node name="GroundBand" type="Polygon2D" parent="Art" unique_id=1417163248]
+color = Color(0.44, 0.34, 0.25, 1)
+polygon = PackedVector2Array(-2600, 0, 6200, 0, 6200, 800, -2600, 800)
+
+[node name="AshBand" type="Polygon2D" parent="Art" unique_id=196640554]
+color = Color(0.3, 0.24, 0.18, 0.68)
+polygon = PackedVector2Array(-2600, 70, 6200, 70, 6200, 190, -2600, 190)
+
+[node name="LevelGeometry" type="Node2D" parent="." unique_id=199135593]
+
+[node name="blocks" type="TileMapLayer" parent="LevelGeometry" unique_id=1734753288]
+modulate = Color(0.78, 0.78, 0.78, 1)
+position = Vector2(1600, 150)
+tile_map_data = PackedByteArray("AABAAP3/AAAAAAoAAABBAP3/AAAAAAoAAABCAP3/AAAAAAoAAABDAP3/AAAAAAoAAABDAPz/AAAAAAoAAABCAPz/AAAAAAoAAABBAPz/AAAAAAoAAABEAPv/AAAAAAoAAABEAPr/AAAAAAoAAABFAPr/AAAAAAoAAABFAPv/AAAAAAoAAABEAPz/AAAAAAoAAABEAP3/AAAAAAoAAABFAP3/AAAAAAoAAABFAPz/AAAAAAoAAABGAPz/AAAAAAoAAABGAPr/AAAAAAoAAABFAPn/AAAAAAoAAABGAPn/AAAAAAoAAABHAPn/AAAAAAoAAABHAPr/AAAAAAoAAABGAPv/AAAAAAoAAABHAPz/AAAAAAoAAABHAP3/AAAAAAoAAABGAP3/AAAAAAoAAABHAPv/AAAAAAoAAABIAPr/AAAAAAoAAABIAPv/AAAAAAoAAABIAPz/AAAAAAoAAABIAP3/AAAAAAoAAABIAPn/AAAAAAoAAABIAPj/AAAAAAoAAABIAPf/AAAAAAoAAABHAPf/AAAAAAoAAABHAPj/AAAAAAoAAABGAPj/AAAAAAoAAABGAPf/AAAAAAoAAADC//3/AAAAAAoAAADB//3/AAAAAAoAAADA//3/AAAAAAoAAADA//z/AAAAAAoAAAC///z/AAAAAAoAAADA//v/AAAAAAoAAADB//r/AAAAAAoAAADB//v/AAAAAAoAAADB//z/AAAAAAoAAAC///3/AAAAAAoAAAC+//3/AAAAAAoAAAC+//z/AAAAAAoAAAC+//v/AAAAAAoAAAC///v/AAAAAAoAAAC///r/AAAAAAoAAAC///n/AAAAAAoAAAC+//r/AAAAAAoAAAC+//n/AAAAAAoAAAC+//j/AAAAAAoAAAC9//3/AAAAAAoAAAC9//z/AAAAAAoAAAC9//v/AAAAAAoAAAC9//r/AAAAAAoAAAC9//n/AAAAAAoAAAC9//j/AAAAAAoAAAC9//f/AAAAAAoAAAC9//b/AAAAAAoAAAC9//X/AAAAAAoAAAC8//b/AAAAAAoAAAC8//f/AAAAAAoAAAC8//j/AAAAAAoAAAC8//n/AAAAAAoAAAC8//r/AAAAAAoAAAC7//r/AAAAAAoAAAC7//v/AAAAAAoAAAC7//z/AAAAAAoAAAC7//3/AAAAAAoAAAC8//z/AAAAAAoAAAC8//v/AAAAAAoAAAC8//3/AAAAAAoAAAC8//7/AAAAAAoAAAC7//7/AAAAAAoAAAC6//3/AAAAAAoAAAC6//z/AAAAAAoAAAC6//v/AAAAAAoAAAC6//r/AAAAAAoAAAC6//n/AAAAAAoAAAC6//j/AAAAAAoAAAC6//f/AAAAAAoAAAC6//b/AAAAAAoAAAC6//X/AAAAAAoAAAC6//T/AAAAAAoAAAC7//T/AAAAAAoAAAC7//X/AAAAAAoAAAC7//b/AAAAAAoAAAC7//f/AAAAAAoAAAC7//j/AAAAAAoAAAC7//n/AAAAAAoAAAC7//P/AAAAAAoAAAC6//P/AAAAAAoAAABJAP3/AAAAAAoAAABKAP3/AAAAAAoAAABLAP3/AAAAAAoAAABMAP3/AAAAAAoAAABMAPz/AAAAAAoAAABLAPz/AAAAAAoAAABKAPz/AAAAAAoAAABJAPz/AAAAAAoAAABJAPv/AAAAAAoAAABKAPv/AAAAAAoAAABLAPv/AAAAAAoAAABMAPv/AAAAAAoAAABMAPr/AAAAAAoAAABLAPr/AAAAAAoAAABKAPr/AAAAAAoAAABJAPr/AAAAAAoAAABJAPn/AAAAAAoAAABKAPn/AAAAAAoAAABLAPn/AAAAAAoAAABMAPn/AAAAAAoAAABMAPj/AAAAAAoAAABLAPj/AAAAAAoAAABKAPj/AAAAAAoAAABJAPj/AAAAAAoAAABJAPf/AAAAAAoAAABKAPf/AAAAAAoAAABLAPf/AAAAAAoAAABMAPf/AAAAAAoAAABHAPb/AAAAAAoAAABIAPb/AAAAAAoAAABJAPb/AAAAAAoAAABKAPb/AAAAAAoAAABLAPb/AAAAAAoAAABLAPX/AAAAAAoAAABKAPX/AAAAAAoAAABJAPX/AAAAAAoAAABIAPX/AAAAAAoAAABHAPX/AAAAAAoAAABHAPT/AAAAAAoAAABIAPT/AAAAAAoAAAA=")
+tile_set = SubResource("TileSet_xv7dq")
+
+[node name="miscellaneous" type="TileMapLayer" parent="LevelGeometry" unique_id=1366776655]
+modulate = Color(0.78, 0.78, 0.78, 1)
+position = Vector2(1600, 150)
+tile_map_data = PackedByteArray("AADL//v/AAAJAAYAAAA7APv/AAAJAAYAAAA=")
+tile_set = SubResource("TileSet_hkj0c")
+
+[node name="PortalExitForest" type="Area2D" parent="LevelGeometry" unique_id=2135983737]
+position = Vector2(1600, 150)
+script = ExtResource("3_y7awv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/PortalExitForest" unique_id=1503730640]
+position = Vector2(3568, -246)
+shape = SubResource("RectangleShape2D_udtko")
+
+[node name="PortalEntranceLimbo" type="Area2D" parent="LevelGeometry" unique_id=1892407745]
+position = Vector2(1457, 275)
+scale = Vector2(0.99999994, 1)
+script = ExtResource("3_y7awv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/PortalEntranceLimbo" unique_id=511083501]
+position = Vector2(-3006.0002, -372)
+shape = SubResource("RectangleShape2D_7qbbt")
+
+[node name="Floor" type="StaticBody2D" parent="LevelGeometry" unique_id=1866645952]
+position = Vector2(1600, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Floor" unique_id=1883063866]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Platform01" type="StaticBody2D" parent="LevelGeometry" unique_id=688753264]
+position = Vector2(380, -160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform01" unique_id=1394582224]
+shape = SubResource("RectangleShape2D_platform_long")
+
+[node name="Platform02" type="StaticBody2D" parent="LevelGeometry" unique_id=1420209538]
+position = Vector2(1280, -210)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform02" unique_id=1183256247]
+shape = SubResource("RectangleShape2D_platform_mid")
+
+[node name="Platform03" type="StaticBody2D" parent="LevelGeometry" unique_id=1791612393]
+position = Vector2(2080, -155)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform03" unique_id=2113139830]
+shape = SubResource("RectangleShape2D_platform_long")
+
+[node name="Platform04" type="StaticBody2D" parent="LevelGeometry" unique_id=311146696]
+position = Vector2(3000, -220)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform04" unique_id=826503543]
+shape = SubResource("RectangleShape2D_platform_mid")
+
+[node name="Platform05" type="StaticBody2D" parent="LevelGeometry" unique_id=326282419]
+position = Vector2(3880, -170)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform05" unique_id=1697441447]
+shape = SubResource("RectangleShape2D_platform_long")
+
+[node name="Logan" parent="." unique_id=1950663890 instance=ExtResource("1_h5r2y")]
+position = Vector2(-1311, -4)
+scale = Vector2(0.95, 0.95)
+
+[node name="Camera2D" type="Camera2D" parent="Logan" unique_id=1935899857]
+position = Vector2(-260, -200)
+scale = Vector2(2.05, 2.05)
+limit_left = -2600
+limit_top = -1200
+limit_right = 6200
+limit_bottom = 900
+
+[node name="PersecutionSystems" type="Node2D" parent="." unique_id=407026443]
+
+[node name="LevelManager" type="Node" parent="PersecutionSystems" unique_id=1551291785]
+script = ExtResource("2_n0l3d")
+player_path = NodePath("../../Logan")
+camera_path = NodePath("../../Logan/Camera2D")
+danger_overlay_path = NodePath("../../UI/DangerOverlay")
+phase_2_start_x = 700.0
+phase_3_start_x = 2300.0
+phase_2_overlay_alpha = 0.025
+phase_3_overlay_alpha_min = 0.09
+overlay_tint = Color(0.34, 0.24, 0.16, 1)
+phase_3_pulse_time = 1.05
+phase_3_shake = 2.5
+
+[node name="LevelPopulator" type="Node2D" parent="PersecutionSystems" unique_id=6343222]
+script = ExtResource("3_v2a8m")
+progress_anchor_path = NodePath("../../Logan")
+hole_scene = ExtResource("4_j8c1t")
+creature_scene = ExtResource("5_p6w9s")
+phase_2_start_x = 700.0
+hole_spawn_ahead_min = 120.0
+hole_spawn_ahead_max = 360.0
+hole_y_min = -220.0
+hole_y_max = -120.0
+chaser_spawn_behind_min = 80.0
+chaser_spawn_behind_max = 170.0
+chaser_spawn_y_min = -10.0
+chaser_spawn_y_max = 42.0
+chaser_hole_back_range = 1200.0
+chaser_hole_front_range = 620.0
+chaser_hole_spawn_offset = Vector2(0, -4)
+
+[node name="HolesLayer" type="Node2D" parent="PersecutionSystems/LevelPopulator" unique_id=161231056]
+modulate = Color(1, 0.95, 0.88, 0.96)
+z_index = -1
+z_as_relative = false
+position = Vector2(0, -118)
+
+[node name="Hole_A" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1369685289 instance=ExtResource("4_j8c1t")]
+position = Vector2(-1020, -86)
+
+[node name="Hole_B" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=2002727781 instance=ExtResource("4_j8c1t")]
+position = Vector2(-780, -42)
+
+[node name="Hole_C" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1914264319 instance=ExtResource("4_j8c1t")]
+position = Vector2(-520, -68)
+
+[node name="Hole_D" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1963701711 instance=ExtResource("4_j8c1t")]
+position = Vector2(-250, -22)
+
+[node name="Hole_E" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1096161854 instance=ExtResource("4_j8c1t")]
+position = Vector2(20, -58)
+
+[node name="Hole_F" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1252605149 instance=ExtResource("4_j8c1t")]
+position = Vector2(360, -16)
+
+[node name="Hole_G" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1578010234 instance=ExtResource("4_j8c1t")]
+position = Vector2(740, -74)
+
+[node name="Hole_H" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1682601260 instance=ExtResource("4_j8c1t")]
+position = Vector2(1120, -30)
+
+[node name="Hole_I" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=953435855 instance=ExtResource("4_j8c1t")]
+position = Vector2(1560, -64)
+
+[node name="Hole_J" parent="PersecutionSystems/LevelPopulator/HolesLayer" unique_id=1792875835 instance=ExtResource("4_j8c1t")]
+position = Vector2(2010, -12)
+
+[node name="CreaturesLayer" type="Node2D" parent="PersecutionSystems/LevelPopulator" unique_id=428536629]
+
+[node name="CycleTimer" type="Timer" parent="PersecutionSystems/LevelPopulator" unique_id=1964145840]
+wait_time = 2.0
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=507552506]
+layer = 5
+
+[node name="BaseTint" type="ColorRect" parent="UI" unique_id=900813648]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.06, 0.04, 0.06)
+
+[node name="DangerOverlay" type="ColorRect" parent="UI" unique_id=446865772]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.32, 0.18, 0.1, 0)

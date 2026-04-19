@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://d263gbuv08c6q"]
+
+[ext_resource type="Texture2D" uid="uid://cupjwe43d03op" path="res://assets/sprites/slime_green.png" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://fw8376wrr0n0" path="res://scripts/enemy.gd" id="1_md0e3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7p1mj"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md0e3"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ra3w"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5uy6h"]
+atlas = ExtResource("1_7p1mj")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c4w8v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7p1mj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md0e3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ra3w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5uy6h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_md0e3"]
+size = Vector2(23.31081, 16.216215)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xwavj"]
+size = Vector2(214, 90.87837)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1918269542]
+position = Vector2(-2, -91.00001)
+scale = Vector2(5.9200006, 5.9200006)
+script = ExtResource("1_md0e3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1032463735]
+sprite_frames = SubResource("SpriteFrames_c4w8v")
+frame_progress = 0.1414266
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=970375008]
+position = Vector2(0, 3.8851366)
+shape = SubResource("RectangleShape2D_md0e3")
+
+[node name="Timer" type="Timer" parent="." unique_id=105431462]
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=2017767955]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=115928699]
+light_mask = 3
+visibility_layer = 3
+position = Vector2(0, 8.277031)
+shape = SubResource("RectangleShape2D_xwavj")
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=388682624]
