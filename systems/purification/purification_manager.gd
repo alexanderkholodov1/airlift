@@ -1,5 +1,4 @@
 extends Node
-class_name PurificationManager
 
 const PurificationResource := preload("res://systems/purification/purification_resource.gd")
 

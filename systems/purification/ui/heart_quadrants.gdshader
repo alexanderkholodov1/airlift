@@ -7,14 +7,17 @@ uniform vec4 gula_color : source_color = vec4(0.29, 0.72, 0.85, 1.0);
 uniform vec4 soberbia_color : source_color = vec4(0.74, 0.39, 0.82, 1.0);
 uniform vec4 empty_color : source_color = vec4(0.16, 0.10, 0.10, 1.0);
 uniform vec4 outline_color : source_color = vec4(0.98, 0.93, 0.89, 0.95);
+uniform vec4 divider_color : source_color = vec4(1.00, 0.97, 0.92, 1.0);
 
 uniform float ira : hint_range(0.0, 1.0) = 0.0;
 uniform float pereza : hint_range(0.0, 1.0) = 0.0;
 uniform float gula : hint_range(0.0, 1.0) = 0.0;
 uniform float soberbia : hint_range(0.0, 1.0) = 0.0;
 
-uniform float edge_softness : hint_range(0.001, 0.030) = 0.007;
-uniform float outline_thickness : hint_range(0.001, 0.050) = 0.013;
+uniform vec2 pixel_grid_size = vec2(54.0, 54.0);
+uniform float heart_scale : hint_range(0.80, 1.80) = 1.25;
+uniform float heart_y_offset : hint_range(-0.40, 0.40) = 0.08;
+uniform float divider_thickness : hint_range(0.005, 0.060) = 0.018;
 
 
 float heart_function(vec2 p) {
@@ -26,15 +29,41 @@ float heart_function(vec2 p) {
 }
 
 
-void fragment() {
-	vec2 uv = UV;
+vec2 pixelate_uv(vec2 uv) {
+	vec2 snapped = floor(uv * pixel_grid_size) + vec2(0.5);
+	return snapped / pixel_grid_size;
+}
+
+
+vec2 to_heart_space(vec2 uv) {
 	vec2 p = uv * 2.0 - 1.0;
 	p.y *= -1.0;
-	p *= 1.25;
-	p.y += 0.08;
+	p *= heart_scale;
+	p.y += heart_y_offset;
+	return p;
+}
 
-	float heart = heart_function(p);
-	float mask = smoothstep(edge_softness, -edge_softness, heart);
+
+float heart_fn_uv(vec2 uv) {
+	return heart_function(to_heart_space(clamp(uv, vec2(0.0), vec2(1.0))));
+}
+
+
+float inside_at(vec2 uv) {
+	if (heart_fn_uv(uv) <= 0.0) {
+		return 1.0;
+	}
+	return 0.0;
+}
+
+
+void fragment() {
+	vec2 uv = pixelate_uv(UV);
+	float inside = inside_at(uv);
+	if (inside < 0.5) {
+		COLOR = vec4(0.0);
+		return;
+	}
 
 	float metric = 0.0;
 	vec4 tint = empty_color;
@@ -55,12 +84,31 @@ void fragment() {
 
 	vec2 local_quad_uv = vec2(fract(uv.x * 2.0), fract(uv.y * 2.0));
 	float height_from_bottom = 1.0 - local_quad_uv.y;
-	float fill = smoothstep(metric + 0.018, metric - 0.018, height_from_bottom);
+	float fill = 0.0;
+	if (metric >= height_from_bottom) {
+		fill = 1.0;
+	}
 
 	vec4 base_color = mix(empty_color, tint, fill);
-	float border = smoothstep(outline_thickness, outline_thickness * 0.35, abs(heart));
-	vec4 final_color = mix(base_color, outline_color, border * 0.8);
-	final_color.a *= mask;
+
+	float v_divider = 1.0 - step(divider_thickness + 0.0001, abs(uv.x - 0.5));
+	float h_divider = 1.0 - step(divider_thickness + 0.0001, abs(uv.y - 0.5));
+	float divider = max(v_divider, h_divider) * inside;
+	base_color = mix(base_color, divider_color, divider);
+
+	vec2 px = 1.0 / pixel_grid_size;
+	float neighbors =
+		inside_at(uv + vec2(px.x, 0.0))
+		+ inside_at(uv - vec2(px.x, 0.0))
+		+ inside_at(uv + vec2(0.0, px.y))
+		+ inside_at(uv - vec2(0.0, px.y));
+	float outline = 0.0;
+	if (inside > 0.5 && neighbors < 4.0) {
+		outline = 1.0;
+	}
+
+	vec4 final_color = mix(base_color, outline_color, outline);
+	final_color.a = inside;
 
 	COLOR = final_color;
 }

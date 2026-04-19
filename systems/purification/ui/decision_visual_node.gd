@@ -14,8 +14,11 @@ var weight: float = 1.0
 
 func _ready() -> void:
 	gravity_scale = 0.0
-	linear_damp = 2.0
-	angular_damp = 4.0
+	linear_damp = 6.0
+	angular_damp = 12.0
+	lock_rotation = true
+	collision_layer = 0
+	collision_mask = 0
 	can_sleep = false
 	_ensure_collision()
 	_refresh_visuals()

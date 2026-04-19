@@ -10,14 +10,16 @@ const DecisionVisualNode := preload("res://systems/purification/ui/decision_visu
 @export var good_cluster_anchor: Vector2 = Vector2(310.0, 300.0)
 @export var bad_cluster_anchor: Vector2 = Vector2(770.0, 300.0)
 
-@export var anchor_attraction: float = 17.0
-@export var same_group_attraction: float = 11.0
-@export var global_repulsion: float = 280000.0
-@export var velocity_damping: float = 2.8
+@export var anchor_attraction: float = 9.5
+@export var same_group_attraction: float = 5.0
+@export var global_repulsion: float = 130000.0
+@export var velocity_damping: float = 6.0
+@export var max_pair_force: float = 230.0
+@export var max_linear_speed: float = 120.0
 
 @export var spring_length: float = 125.0
-@export var spring_stiffness: float = 14.0
-@export var spring_damping: float = 5.4
+@export var spring_stiffness: float = 7.2
+@export var spring_damping: float = 9.0
 
 @export var auto_demo: bool = false
 
@@ -52,6 +54,7 @@ func _physics_process(delta: float) -> void:
 	_apply_anchor_forces(delta)
 	_apply_pair_forces()
 	_apply_soft_bounds()
+	_limit_velocities()
 
 
 func _draw() -> void:
@@ -171,12 +174,13 @@ func _apply_pair_forces() -> void:
 			var dist: float = sqrt(dist_sq)
 			var dir: Vector2 = offset / dist
 
-			var repulse: Vector2 = dir * (global_repulsion / dist_sq)
+			var repulse_strength: float = minf(global_repulsion / dist_sq, max_pair_force)
+			var repulse: Vector2 = dir * repulse_strength
 			a.apply_central_force(-repulse)
 			b.apply_central_force(repulse)
 
 			if a.polarity == b.polarity:
-				var attract_strength: float = clampf(dist - spring_length, -90.0, 90.0) * same_group_attraction
+				var attract_strength: float = clampf((dist - spring_length) * same_group_attraction, -max_pair_force, max_pair_force)
 				var attract: Vector2 = dir * attract_strength
 				a.apply_central_force(attract)
 				b.apply_central_force(-attract)
@@ -210,6 +214,13 @@ func _anchor_for(polarity: String) -> Vector2:
 	if polarity == "good":
 		return good_cluster_anchor
 	return graph_size * 0.5
+
+
+func _limit_velocities() -> void:
+	for node in _nodes:
+		if not is_instance_valid(node):
+			continue
+		node.linear_velocity = node.linear_velocity.limit_length(max_linear_speed)
 
 
 func _trim_nodes() -> void:
