@@ -395,6 +395,7 @@ stretch_mode = 1
 
 [node name="Lianas" parent="." unique_id=684243844 instance=ExtResource("9_3knxq")]
 position = Vector2(845, 6)
+tile_map_data = PackedByteArray("AAD9//3/AAAAAAAAAAD9//n/AAAAAAAAAAD9//X/AAAAAAAAAAD9//H/AAAAAAAAAAD9/+3/AAAAAAAAAAD9/+n/AAAAAAAAAAD9/+X/AAAAAAAAAAA=")
 
 [node name="Nivel" type="TileMapLayer" parent="." unique_id=700351890]
 modulate = Color(0.4509804, 0.11764706, 0.18039216, 1)

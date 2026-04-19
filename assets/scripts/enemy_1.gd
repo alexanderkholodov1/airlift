@@ -19,8 +19,8 @@ func _physics_process(_delta):
 		
 		# Opcional: Girar el sprite para mirar al jugador
 		if direccion.x > 0:
-			$Sprite2D.flip_h = false
+			$AnimatedSprite2D.flip_h = false
 		elif direccion.x < 0:
-			$Sprite2D.flip_h = true
+			$AnimatedSprite2D.flip_h = true
 			
 		move_and_slide()

@@ -120,7 +120,7 @@ func intentar_agarrar_objeto():
 func lanzar_objeto():
 	if objeto_en_mano:
 		var direccion = (get_global_mouse_position() - global_position).normalized()
-		var fuerza_lanzamiento = 700.0
+		var fuerza_lanzamiento = 400.0
 		
 		objeto_en_mano.ser_soltado(direccion * fuerza_lanzamiento)
 		objeto_en_mano = null
