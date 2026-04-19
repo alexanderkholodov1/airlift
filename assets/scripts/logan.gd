@@ -5,7 +5,6 @@ extends CharacterBody2D
 # ==========================================
 @export var anim: AnimatedSprite2D
 var speed: float = 140.0	
-var jumpForce: float = -300.0
 
 # ==========================================
 # VARIABLES DE INTERACCIÓN (OBJETOS)
@@ -21,23 +20,27 @@ func _physics_process(delta):
 	# 1. Aplicar Gravedad (Godot 4.3+)
 	velocity += get_gravity() * delta
 	
-	# 2. Salto (Con la barra espaciadora / ui_accept)
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = jumpForce
+	# 2 . Trepar
 	
 	# 3. Movimiento horizontal siguiendo al mouse
-	var direccion_mouse = get_local_mouse_position().x
+	
+		
+		
+	if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		var direccion_mouse = get_local_mouse_position().x
 	
 	# Si el mouse está a más de 10 píxeles a la derecha
-	if direccion_mouse > 10:
-		velocity.x = speed
-		anim.flip_h = true # Cambia esto a false si tu personaje camina de espaldas
-	# Si está a la izquierda
-	elif direccion_mouse < -10:
-		velocity.x = -speed
-		anim.flip_h = false # Cambia esto a true si tu personaje camina de espaldas
+		if direccion_mouse > 10:
+			velocity.x = speed
+			anim.flip_h = true # Cambia esto a false si tu personaje camina de espaldas
+		# Si está a la izquierda
+		elif direccion_mouse < -10:
+			velocity.x = -speed
+			anim.flip_h = false # Cambia esto a true si tu personaje camina de espaldas
+		else:
+			velocity.x = 0
 	else:
-		velocity.x = 0
+		velocity.x = 0 
 		
 	# 4. Aplicar el movimiento
 	move_and_slide()
