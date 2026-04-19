@@ -8,7 +8,7 @@ enum SpiderMode {
 @export var chase_speed: float = 175.0
 @export var chase_acceleration: float = 1050.0
 @export var idle_speed_factor: float = 0.38
-@export var moving_target_trail_distance: float = 104.0
+@export var moving_target_trail_distance: float = 300.0
 @export var trail_tolerance: float = 10.0
 @export var moving_target_speed_threshold: float = 12.0
 
