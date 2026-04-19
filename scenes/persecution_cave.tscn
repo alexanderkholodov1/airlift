@@ -1,0 +1,192 @@
+[gd_scene format=4]
+
+[ext_resource type="PackedScene" path="res://scenes/Logan.tscn" id="1_h5r2y"]
+[ext_resource type="Script" path="res://systems/persecution/persecution_level_manager.gd" id="2_n0l3d"]
+[ext_resource type="Script" path="res://systems/persecution/level_populator.gd" id="3_v2a8m"]
+[ext_resource type="PackedScene" path="res://scenes/placeholders/hole_placeholder.tscn" id="4_j8c1t"]
+[ext_resource type="PackedScene" path="res://scenes/placeholders/cave_stalker_placeholder.tscn" id="5_p6w9s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(9800, 220)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform_long"]
+size = Vector2(620, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform_mid"]
+size = Vector2(430, 70)
+
+[node name="PersecutionCave" type="Node2D"]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.5, 0.42, 0.35, 1)
+
+[node name="Art" type="Node2D" parent="."]
+z_as_relative = false
+z_index = -30
+
+[node name="BackdropFar" type="Polygon2D" parent="Art"]
+color = Color(0.23, 0.19, 0.15, 1)
+polygon = PackedVector2Array(-2600, -1500, 6200, -1500, 6200, 1800, -2600, 1800)
+
+[node name="BackdropMid" type="Polygon2D" parent="Art"]
+color = Color(0.34, 0.28, 0.22, 0.88)
+polygon = PackedVector2Array(-2600, -300, -2100, -380, -1600, -260, -1100, -420, -650, -250, -200, -390, 350, -280, 900, -430, 1450, -310, 2000, -450, 2550, -320, 3100, -470, 3650, -350, 4200, -430, 4800, -280, 5400, -360, 6200, -290, 6200, 900, -2600, 900)
+
+[node name="GroundBand" type="Polygon2D" parent="Art"]
+color = Color(0.44, 0.34, 0.25, 1)
+polygon = PackedVector2Array(-2600, 0, 6200, 0, 6200, 800, -2600, 800)
+
+[node name="AshBand" type="Polygon2D" parent="Art"]
+color = Color(0.3, 0.24, 0.18, 0.68)
+polygon = PackedVector2Array(-2600, 70, 6200, 70, 6200, 190, -2600, 190)
+
+[node name="LevelGeometry" type="Node2D" parent="."]
+
+[node name="Floor" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(1600, 150)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Floor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Platform01" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(380, -160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform01"]
+shape = SubResource("RectangleShape2D_platform_long")
+
+[node name="Platform02" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(1280, -210)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform02"]
+shape = SubResource("RectangleShape2D_platform_mid")
+
+[node name="Platform03" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(2080, -155)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform03"]
+shape = SubResource("RectangleShape2D_platform_long")
+
+[node name="Platform04" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(3000, -220)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform04"]
+shape = SubResource("RectangleShape2D_platform_mid")
+
+[node name="Platform05" type="StaticBody2D" parent="LevelGeometry"]
+position = Vector2(3880, -170)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LevelGeometry/Platform05"]
+shape = SubResource("RectangleShape2D_platform_long")
+
+[node name="Logan" parent="." instance=ExtResource("1_h5r2y")]
+position = Vector2(-900, -20)
+scale = Vector2(0.95, 0.95)
+
+[node name="Camera2D" type="Camera2D" parent="Logan"]
+position = Vector2(-260, -200)
+scale = Vector2(2.05, 2.05)
+limit_left = -2600
+limit_top = -1200
+limit_right = 6200
+limit_bottom = 900
+
+[node name="PersecutionSystems" type="Node2D" parent="."]
+
+[node name="LevelManager" type="Node" parent="PersecutionSystems"]
+script = ExtResource("2_n0l3d")
+player_path = NodePath("../../Logan")
+camera_path = NodePath("../../Logan/Camera2D")
+danger_overlay_path = NodePath("../../UI/DangerOverlay")
+phase_2_start_x = 700.0
+phase_3_start_x = 2300.0
+phase_2_overlay_alpha = 0.025
+phase_3_overlay_alpha_min = 0.09
+phase_3_overlay_alpha_max = 0.24
+overlay_tint = Color(0.34, 0.24, 0.16, 1)
+phase_3_overlay_tint = Color(0.86, 0.12, 0.1, 1)
+phase_3_pulse_time = 1.05
+phase_3_shake = 2.5
+
+[node name="LevelPopulator" type="Node2D" parent="PersecutionSystems"]
+script = ExtResource("3_v2a8m")
+progress_anchor_path = NodePath("../../Logan")
+hole_scene = ExtResource("4_j8c1t")
+creature_scene = ExtResource("5_p6w9s")
+phase_2_start_x = 700.0
+phase_3_start_x = 2300.0
+hole_spawn_ahead_min = 120.0
+hole_spawn_ahead_max = 360.0
+hole_y_min = -220.0
+hole_y_max = -120.0
+chaser_spawn_behind_min = 80.0
+chaser_spawn_behind_max = 170.0
+chaser_spawn_y_min = -10.0
+chaser_spawn_y_max = 42.0
+chaser_hole_back_range = 1200.0
+chaser_hole_front_range = 620.0
+chaser_spawn_from_hole_chance = 1.0
+chaser_hole_spawn_offset = Vector2(0, -4)
+deterministic_seed = 270319
+
+[node name="HolesLayer" type="Node2D" parent="PersecutionSystems/LevelPopulator"]
+position = Vector2(0, -118)
+scale = Vector2(1, 1)
+modulate = Color(1, 0.95, 0.88, 0.96)
+z_as_relative = false
+z_index = -1
+
+[node name="Hole_A" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(-1020, -86)
+
+[node name="Hole_B" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(-780, -42)
+
+[node name="Hole_C" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(-520, -68)
+
+[node name="Hole_D" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(-250, -22)
+
+[node name="Hole_E" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(20, -58)
+
+[node name="Hole_F" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(360, -16)
+
+[node name="Hole_G" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(740, -74)
+
+[node name="Hole_H" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(1120, -30)
+
+[node name="Hole_I" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(1560, -64)
+
+[node name="Hole_J" parent="PersecutionSystems/LevelPopulator/HolesLayer" instance=ExtResource("4_j8c1t")]
+position = Vector2(2010, -12)
+
+[node name="CreaturesLayer" type="Node2D" parent="PersecutionSystems/LevelPopulator"]
+
+[node name="CycleTimer" type="Timer" parent="PersecutionSystems/LevelPopulator"]
+wait_time = 2.0
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="BaseTint" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.08, 0.06, 0.04, 0.06)
+
+[node name="DangerOverlay" type="ColorRect" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.32, 0.18, 0.1, 0)
