@@ -15,6 +15,10 @@ run/main_scene="uid://xkoeivep6wkv"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SceneTransition="*uid://bibf1oroi7onw"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/github_copilot/plugin.cfg")
@@ -27,3 +31,4 @@ enabled=PackedStringArray("res://addons/github_copilot/plugin.cfg")
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+viewport/hdr_2d=true

@@ -47,12 +47,12 @@ size = Vector2(214, 131)
 
 [node name="Enemy" type="CharacterBody2D" unique_id=1918269542]
 position = Vector2(-2, -91.00001)
-scale = Vector2(7.44, 7.44)
+scale = Vector2(5.9200006, 5.9200006)
 script = ExtResource("1_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1032463735]
 sprite_frames = SubResource("SpriteFrames_c4w8v")
-frame_progress = 0.40036392
+frame_progress = 0.1414266
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=970375008]
 position = Vector2(0, 5.2419357)
