@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ds4ub48b2qwui"
-path="res://.godot/imported/spritepaint (3).png-93641d190428ce6783b298c255c878c3.ctex"
+uid="uid://ypaidrrowfd6"
+path="res://.godot/imported/Barco .png-ddf8dabc069cfe0fef539a2cdbd9adef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/spritepaint (3).png"
-dest_files=["res://.godot/imported/spritepaint (3).png-93641d190428ce6783b298c255c878c3.ctex"]
+source_file="res://assets/sprites/Barco .png"
+dest_files=["res://.godot/imported/Barco .png-ddf8dabc069cfe0fef539a2cdbd9adef.ctex"]
 
 [params]
 

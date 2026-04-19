@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="airlift"
-run/main_scene="uid://xkoeivep6wkv"
+run/main_scene="uid://b4su028tdidi8"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,14 @@ SceneTransition="*uid://bibf1oroi7onw"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/github_copilot/plugin.cfg")
+
+[input]
+
+skip={
+"deadzone": 0.2,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":4,"position":Vector2(135, 22),"global_position":Vector2(149, 95),"factor":1.0,"button_index":3,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [physics]
 
