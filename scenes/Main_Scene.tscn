@@ -1,11 +1,11 @@
-[gd_scene format=3 uid="uid://b4su028tdidi8"]
+[gd_scene format=3 uid="uid://bnckp0gupk2ey"]
 
-[ext_resource type="Theme" uid="uid://b3dh1hkyfjje0" path="res://themes/Main_Scene.tres" id="1_e2wy0"]
+[ext_resource type="Theme" path="res://themes/Main_Scene.tres" id="1_e2wy0"]
 [ext_resource type="Texture2D" uid="uid://c2nn7h4hhb1ah" path="res://assets/sprites/Menu.PNG" id="1_qqyc6"]
-[ext_resource type="StyleBox" uid="uid://cvbi6snv4v4qw" path="res://themes/Normal.tres" id="2_o3wkw"]
-[ext_resource type="StyleBox" uid="uid://cp08okob8q2lt" path="res://themes/Pressed.tres" id="3_f0b8s"]
-[ext_resource type="StyleBox" uid="uid://dlci6y6e5uwob" path="res://themes/Hover.tres" id="4_qqyc6"]
-[ext_resource type="Script" uid="uid://dxbig1trbvfla" path="res://assets/scripts/jugar.gd" id="5_f0b8s"]
+[ext_resource type="StyleBox" path="res://themes/Normal.tres" id="2_o3wkw"]
+[ext_resource type="StyleBox" path="res://themes/Pressed.tres" id="3_f0b8s"]
+[ext_resource type="StyleBox" path="res://themes/Hover.tres" id="4_qqyc6"]
+[ext_resource type="Script" uid="uid://dxbig1trbvfla" path="res://scripts/jugar.gd" id="5_f0b8s"]
 
 [sub_resource type="GDScript" id="GDScript_o3wkw"]
 script/source = "extends Button

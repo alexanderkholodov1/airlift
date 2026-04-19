@@ -4,7 +4,7 @@ extends CharacterBody2D
 # VARIABLES DE MOVIMIENTO Y ANIMACIÓN
 # ==========================================
 @export var anim: AnimatedSprite2D
-var speed: float = 300.0	
+var speed: float = 190.0	
 
 var puede_trepar: bool = false
 var trepando: bool = false
