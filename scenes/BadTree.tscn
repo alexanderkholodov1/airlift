@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://cpimr0u065a11"]
+
+[ext_resource type="Script" uid="uid://bmishougdvnlu" path="res://scripts/bad_tree.gd" id="1_712yb"]
+[ext_resource type="Texture2D" uid="uid://vqmqsbe1y2bu" path="res://assets/sprites/DemonTree.png" id="1_r24p5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_712yb"]
+atlas = ExtResource("1_r24p5")
+region = Rect2(0, 0, 180, 286)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yg2v8"]
+atlas = ExtResource("1_r24p5")
+region = Rect2(180, 0, 180, 286)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtstx"]
+atlas = ExtResource("1_r24p5")
+region = Rect2(0, 0, 180, 286)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4etj6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_712yb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yg2v8")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtstx")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fcqok"]
+size = Vector2(50, 176)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=496411549]
+script = ExtResource("1_712yb")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=658463550]
+sprite_frames = SubResource("SpriteFrames_4etj6")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1039308655]
+position = Vector2(4, 6)
+shape = SubResource("RectangleShape2D_fcqok")
