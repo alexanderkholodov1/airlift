@@ -1,6 +1,7 @@
 extends Area2D
 
 @export_enum("WHEEL_UP", "WHEEL_DOWN") var scroll_direction: String = "WHEEL_UP"
+@export var portal_enabled: bool = true
 
 var player_inside: bool = false
 var is_transitioning: bool = false
@@ -25,6 +26,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not player_inside or is_transitioning:
+		return
+
+	if not portal_enabled:
 		return
 
 	if event is InputEventMouseButton and event.pressed:
