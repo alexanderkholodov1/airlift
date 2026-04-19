@@ -12,9 +12,10 @@ var dialogues = [
 	{"speaker": "Sr. Misterio", "text": "Sí lo hay, deberías pasar por cada uno de los pecados que realizaste mientras estuviste en vida."},
 	{"speaker": "Logan", "text": "¿Y cómo llego a eso y qué debo de hacer?"},
 	{"speaker": "Sr. Misterio", "text": "Actualmente te estoy llevando a un lugar en donde tendrás que ir demostrando que los pecados que hiciste son suficiente para uno y salir ya."},
-	{"speaker": "Tutorial", "text": "Tutorial: Usa el click izquierdo para hacer que Logan se mueva hacia esa posición."},
-	{"speaker": "Tutorial", "text": "Tutorial: Haz click derecho cerca de un objeto para recogerlo. El objeto se agarrará en la mano de Logan."},
-	{"speaker": "Tutorial", "text": "Tutorial: Mientras sostienes un objeto, haz click derecho nuevamente para lanzarlo desde la posición actual de Logan."}
+	{"speaker": "Tutorial", "text": "Usa el click izquierdo para hacer que Logan se mueva hacia esa posición."},
+	{"speaker": "Tutorial", "text": "Haz click derecho cerca de un objeto para recogerlo. El objeto se agarrará en la mano de Logan."},
+	{"speaker": "Tutorial", "text": "Mientras sostienes un objeto, haz click derecho nuevamente para lanzarlo desde la posición actual de Logan."},
+	{"speaker": "Tutorial", "text": "Buena suerte !!"}
 ]
 
 var current_dialogue_index = 0
@@ -46,7 +47,7 @@ func _process(delta):
 				pass
 
 func _input(event):
-	if Input.is_action_just_pressed("skip") and char_index >= dialogues[current_dialogue_index]["text"].length():
+	if Input.is_action_just_pressed("skip"):
 		next_dialogue()
 
 func start_dialogue():
@@ -60,10 +61,13 @@ func next_dialogue():
 	current_dialogue_index += 1
 	char_index = 0
 	timer = 0.0
+	
+	# Verificamos si ya pasamos el último diálogo
 	if current_dialogue_index >= dialogues.size():
-		# End of tutorial/dialogue sequence
-		current_dialogue_index = dialogues.size() - 1
-		char_index = dialogues[current_dialogue_index]["text"].length()
+		# CAMBIO DE ESCENA AQUÍ
+		# Reemplaza "res://Nivel1.tscn" por la ruta real de tu siguiente escena
+		get_tree().change_scene_to_file("res://scenes/limbo.tscn")
 	else:
+		# Si todavía hay diálogos, preparamos el siguiente
 		var speaker = dialogues[current_dialogue_index]["speaker"]
 		dialogue_label.text = speaker + ": "
