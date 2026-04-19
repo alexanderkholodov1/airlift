@@ -5,7 +5,8 @@ extends CharacterBody2D
 # ==========================================
 @export var anim: AnimatedSprite2D
 var speed: float = 190.0	
-
+var vida: int = 5
+var puede_recibir_dano: bool = true
 var puede_trepar: bool = false
 var trepando: bool = false
 var climb_speed: float = 120.0
@@ -125,6 +126,24 @@ func lanzar_objeto():
 		objeto_en_mano.ser_soltado(direccion * fuerza_lanzamiento)
 		objeto_en_mano = null
 
+func recibir_dano(cantidad: int):
+	if puede_recibir_dano:
+		vida -= cantidad
+		print("¡Auch! Vida restante: ", vida)
+		
+		if vida <= 0:
+			morir()
+		else:
+			# Hacerlo invulnerable por 1 segundo para que pueda escapar
+			puede_recibir_dano = false
+			# Opcional: hacer que el personaje parpadee cambiando su color aquí
+			await get_tree().create_timer(1.0).timeout
+			puede_recibir_dano = true # Ya le pueden volver a pegar
+
+func morir():
+	print("Has muerto...")
+	# Reinicia el nivel cuando mueres
+	get_tree().reload_current_scene()
 
 func _on_liana_detector_body_entered(body: Node2D) -> void:
 	puede_trepar = true
