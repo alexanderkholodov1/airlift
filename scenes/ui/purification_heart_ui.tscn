@@ -30,7 +30,9 @@ theme_override_constants/separation = 8
 
 [node name="Title" type="Label" parent="Panel/Margin/VBox"]
 layout_mode = 2
-text = "Corazon de Purificacion"
+text = "Corazon de Moralidad"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
 
 [node name="HeartFill" type="Control" parent="Panel/Margin/VBox"]
 custom_minimum_size = Vector2(224, 224)

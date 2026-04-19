@@ -83,6 +83,27 @@ func add_decision(decision: Dictionary) -> void:
 	_trim_nodes()
 
 
+func clear_graph() -> void:
+	for edge in _edges:
+		var joint: Object = edge.get("joint")
+		if is_instance_valid(joint):
+			joint.queue_free()
+	_edges.clear()
+
+	for node in _nodes:
+		if is_instance_valid(node):
+			node.queue_free()
+	_nodes.clear()
+
+
+func set_seed_decisions(decisions: Array[Dictionary], clear_existing: bool = true) -> void:
+	if clear_existing:
+		clear_graph()
+
+	for decision in decisions:
+		add_decision(decision)
+
+
 func _on_decision_registered(decision: Dictionary) -> void:
 	add_decision(decision)
 

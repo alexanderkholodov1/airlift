@@ -1,0 +1,118 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://systems/purification/ui/death_screen.gd" id="1_4k70h"]
+[ext_resource type="PackedScene" path="res://scenes/ui/purification_decision_graph.tscn" id="2_h5nea"]
+[ext_resource type="PackedScene" path="res://scenes/ui/purification_heart_ui.tscn" id="3_a0pwr"]
+[ext_resource type="FontFile" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_2qhts"]
+
+[sub_resource type="Theme" id="Theme_x8xpu"]
+default_font = ExtResource("4_2qhts")
+default_font_size = 22
+
+[node name="DeathScreen" type="CanvasLayer"]
+layer = 20
+script = ExtResource("1_4k70h")
+
+[node name="Root" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0313726, 0.027451, 0.0588235, 0.92)
+theme = SubResource("Theme_x8xpu")
+
+[node name="MainPanel" type="PanelContainer" parent="Root"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = -14.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/MainPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Root/MainPanel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Root/MainPanel/Margin/VBox"]
+layout_mode = 2
+text = "ALMA CONDENADA"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+
+[node name="Reason" type="Label" parent="Root/MainPanel/Margin/VBox"]
+layout_mode = 2
+text = "CAUSA: TE CONSUMIO LA OSCURIDAD"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+
+[node name="Body" type="HBoxContainer" parent="Root/MainPanel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="GraphPanel" type="PanelContainer" parent="Root/MainPanel/Margin/VBox/Body"]
+custom_minimum_size = Vector2(610, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.7
+
+[node name="GraphAnchor" type="Control" parent="Root/MainPanel/Margin/VBox/Body/GraphPanel"]
+layout_mode = 2
+clip_contents = true
+
+[node name="PurificationDecisionGraph" parent="Root/MainPanel/Margin/VBox/Body/GraphPanel/GraphAnchor" instance=ExtResource("2_h5nea")]
+position = Vector2(8, 10)
+graph_size = Vector2(594, 282)
+good_cluster_anchor = Vector2(184, 144)
+bad_cluster_anchor = Vector2(410, 144)
+max_nodes = 46
+auto_demo = false
+
+[node name="HeartPanel" type="PanelContainer" parent="Root/MainPanel/Margin/VBox/Body"]
+custom_minimum_size = Vector2(320, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.0
+
+[node name="PurificationHeartUI" parent="Root/MainPanel/Margin/VBox/Body/HeartPanel" instance=ExtResource("3_a0pwr")]
+offset_left = -24.0
+offset_top = -12.0
+offset_right = 320.0
+offset_bottom = 328.0
+scale = Vector2(0.74, 0.74)
+
+[node name="ButtonRow" type="HBoxContainer" parent="Root/MainPanel/Margin/VBox"]
+layout_mode = 2
+alignment = 1
+theme_override_constants/separation = 14
+
+[node name="RetryButton" type="Button" parent="Root/MainPanel/Margin/VBox/ButtonRow"]
+custom_minimum_size = Vector2(212, 48)
+layout_mode = 2
+text = "REINTENTAR [R]"
+theme_override_font_sizes/font_size = 24
+
+[node name="ExitButton" type="Button" parent="Root/MainPanel/Margin/VBox/ButtonRow"]
+custom_minimum_size = Vector2(262, 48)
+layout_mode = 2
+text = "VOLVER AL LIMBO [ESC]"
+theme_override_font_sizes/font_size = 24
+
+[node name="Hint" type="Label" parent="Root/MainPanel/Margin/VBox"]
+layout_mode = 2
+text = "EL GRAFO MUESTRA TU RASTRO MORAL RECIENTE"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
