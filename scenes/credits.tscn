@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://crap8oy17ybvn"]
+
+[ext_resource type="Script" uid="uid://4gleweoj60gl" path="res://scripts/purification/ui/death_screen.gd" id="1_4k70h"]
+[ext_resource type="PackedScene" path="res://scenes/ui/purification_decision_graph.tscn" id="2_h5nea"]
+[ext_resource type="PackedScene" path="res://scenes/ui/purification_heart_ui.tscn" id="3_a0pwr"]
+[ext_resource type="FontFile" uid="uid://b7xi7obkqtwhk" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_2qhts"]
+
+[sub_resource type="Theme" id="Theme_x8xpu"]
+default_font = ExtResource("4_2qhts")
+default_font_size = 22
+
+[node name="Credits" type="CanvasLayer" unique_id=900267200]
+layer = 20
+script = ExtResource("1_4k70h")
+
+[node name="Root" type="ColorRect" parent="." unique_id=1146102074]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_x8xpu")
+color = Color(0.0313726, 0.027451, 0.0588235, 0.92)
+
+[node name="MainPanel" type="PanelContainer" parent="Root" unique_id=2018451805]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = -14.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Margin" type="MarginContainer" parent="Root/MainPanel" unique_id=1333218311]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="VBox" type="VBoxContainer" parent="Root/MainPanel/Margin" unique_id=864392324]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Root/MainPanel/Margin/VBox" unique_id=1028472184]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "TIPO DE FINAL"
+horizontal_alignment = 1
+
+[node name="Reason" type="Label" parent="Root/MainPanel/Margin/VBox" unique_id=1262300060]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "CAUSA: TE CONSUMIO LA OSCURIDAD"
+horizontal_alignment = 1
+
+[node name="Body" type="HBoxContainer" parent="Root/MainPanel/Margin/VBox" unique_id=938710798]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="GraphPanel" type="PanelContainer" parent="Root/MainPanel/Margin/VBox/Body" unique_id=1614034951]
+custom_minimum_size = Vector2(610, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 1.7
+
+[node name="GraphAnchor" type="Control" parent="Root/MainPanel/Margin/VBox/Body/GraphPanel" unique_id=313194477]
+clip_contents = true
+layout_mode = 2
+
+[node name="PurificationDecisionGraph" parent="Root/MainPanel/Margin/VBox/Body/GraphPanel/GraphAnchor" unique_id=908314420 instance=ExtResource("2_h5nea")]
+position = Vector2(8, 10)
+max_nodes = 46
+graph_size = Vector2(594, 282)
+good_cluster_anchor = Vector2(184, 144)
+bad_cluster_anchor = Vector2(410, 144)
+
+[node name="HeartPanel" type="PanelContainer" parent="Root/MainPanel/Margin/VBox/Body" unique_id=1068533654]
+custom_minimum_size = Vector2(320, 300)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PurificationHeartUI" parent="Root/MainPanel/Margin/VBox/Body/HeartPanel" unique_id=303402925 instance=ExtResource("3_a0pwr")]
+layout_mode = 2
+
+[node name="ButtonRow" type="HBoxContainer" parent="Root/MainPanel/Margin/VBox" unique_id=924959543]
+layout_mode = 2
+theme_override_constants/separation = 14
+alignment = 1
+
+[node name="RetryButton" type="Button" parent="Root/MainPanel/Margin/VBox/ButtonRow" unique_id=946953990]
+custom_minimum_size = Vector2(212, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "GRACIAS POR JUGAR"
+
+[node name="ExitButton" type="Button" parent="Root/MainPanel/Margin/VBox/ButtonRow" unique_id=2135819929]
+custom_minimum_size = Vector2(262, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "VOLVER AL LIMBO [ESC]"
+
+[node name="Hint" type="Label" parent="Root/MainPanel/Margin/VBox" unique_id=2021440826]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "EL GRAFO MUESTRA TU RASTRO MORAL RECIENTE"
+horizontal_alignment = 1

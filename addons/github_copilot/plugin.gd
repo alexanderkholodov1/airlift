@@ -96,6 +96,7 @@ func _hook_editor() -> void:
 		current_uri = "file://" + ProjectSettings.globalize_path(script.resource_path)
 		manager.notify_document_focus(current_uri)
 
+
 func _unhook_editor() -> void:
 	# Dismiss any active suggestion
 	if overlay:

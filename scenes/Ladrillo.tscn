@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1exk"]
 size = Vector2(203.89108, 110)
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=1255913011]
+[node name="Ladrillo" type="RigidBody2D" unique_id=1255913011]
 position = Vector2(-1, -14.000001)
 scale = Vector2(0.16000004, 0.16000004)
 collision_layer = 2

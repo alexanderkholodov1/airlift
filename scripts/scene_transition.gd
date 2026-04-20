@@ -26,6 +26,9 @@ const ARRIVAL_PORTAL_BY_SOURCE := {
 	"PortalEntranceLimbo": "PortalExitCavern",
 	"PortalExitForest": "PortalEntranceCavern",
 	"PortalEntranceCavern": "PortalExitForest",
+	"PortalEntranceBoss": "PortalExitBoss",
+	"PortalExitBoss": "PortalEntranceBoss",
+	"PortalExitArena": "PortalEntranceArena",
 }
 
 

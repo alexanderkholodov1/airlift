@@ -1,0 +1,78 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/purification/ui/purification_heart_ui.gd" id="1_n80rb"]
+[ext_resource type="Script" path="res://scripts/purification/ui/pixel_heart_display.gd" id="2_w6fwb"]
+
+[node name="PurificationHeartUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 344.0
+offset_bottom = 340.0
+script = ExtResource("1_n80rb")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 332.0
+offset_bottom = 326.0
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+text = "Corazon de Moralidad"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 18
+
+[node name="HeartFill" type="Control" parent="Panel/Margin/VBox"]
+custom_minimum_size = Vector2(224, 224)
+layout_mode = 2
+script = ExtResource("2_w6fwb")
+
+[node name="Stats" type="GridContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+columns = 2
+theme_override_constants/h_separation = 14
+theme_override_constants/v_separation = 4
+
+[node name="IraText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Ira"
+
+[node name="IraValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"
+
+[node name="PerezaText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Pereza"
+
+[node name="PerezaValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"
+
+[node name="GulaText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Gula"
+
+[node name="GulaValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"
+
+[node name="SoberbiaText" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "Soberbia"
+
+[node name="SoberbiaValue" type="Label" parent="Panel/Margin/VBox/Stats"]
+layout_mode = 2
+text = "0.0%"

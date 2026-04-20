@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://cpb2vuclesiqf"]
+
+[ext_resource type="Texture2D" uid="uid://vqmqsbe1y2bu" path="res://assets/sprites/DemonTree.png" id="1_b4jkf"]
+[ext_resource type="Script" uid="uid://4rumui82ee75" path="res://scripts/enemy_tree.gd" id="1_x60tn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x60tn"]
+atlas = ExtResource("1_b4jkf")
+region = Rect2(0, 0, 179, 290)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v371j"]
+atlas = ExtResource("1_b4jkf")
+region = Rect2(179, 0, 179, 290)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drl0a"]
+atlas = ExtResource("1_b4jkf")
+region = Rect2(0, 0, 179, 290)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qyp1p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x60tn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v371j")
+}],
+"loop": true,
+"name": &"Attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drl0a")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b4jkf"]
+radius = 31.0
+height = 176.0
+
+[node name="EnemyTree" type="CharacterBody2D" unique_id=1739853555]
+script = ExtResource("1_x60tn")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1999662190]
+sprite_frames = SubResource("SpriteFrames_qyp1p")
+animation = &"Idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=842016004]
+position = Vector2(6, 5)
+shape = SubResource("CapsuleShape2D_b4jkf")

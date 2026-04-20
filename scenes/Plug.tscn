@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=4 uid="uid://dw84fljg3xtdi"]
+
+[ext_resource type="Script" uid="uid://bdp4oyxt8ene5" path="res://scripts/boss_plug.gd" id="1_plug"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plug"]
+size = Vector2(46, 84)
+
+[node name="Plug" type="Area2D"]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_plug")
+
+[node name="Body" type="Polygon2D" parent="."]
+color = Color(0.709804, 0.737255, 0.784314, 1)
+polygon = PackedVector2Array(-20, -36, 20, -36, 20, 36, -20, 36)
+
+[node name="Tip" type="Polygon2D" parent="."]
+color = Color(0.886275, 0.901961, 0.929412, 1)
+polygon = PackedVector2Array(-14, -50, -2, -36, 2, -36, 14, -50, 10, -56, -10, -56)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_plug")

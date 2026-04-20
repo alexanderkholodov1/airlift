@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/purification/ui/decision_visual_node.gd" id="1_64g4f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gi31f"]
+radius = 12.0
+
+[node name="DecisionVisualNode" type="RigidBody2D"]
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 4.0
+script = ExtResource("1_64g4f")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gi31f")

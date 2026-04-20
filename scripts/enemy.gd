@@ -212,6 +212,8 @@ func _die() -> void:
 	# Notificar al sistema de purificación — perdonar (no atacar) sería la acción buena
 	# pero acá el jugador lo mató, así que es neutral/malo según el contexto
 	# Puedes ajustar esto según la narrativa del juego
+	if purification_manager and purification_manager.has_method("ingest_game_signal"):
+		purification_manager.ingest_game_signal("limbo_enemy_killed", {"intensity": 1.0})
 
 	# Desactivar colisiones
 	$CollisionShape2D.set_deferred("disabled", true)

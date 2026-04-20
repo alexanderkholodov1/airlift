@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://dntttk3344k0l"]
+
+[ext_resource type="Script" uid="uid://d38cgbugiaqks" path="res://scripts/parca.gd" id="1_rw06c"]
+[ext_resource type="Texture2D" uid="uid://diwds5wqfwodr" path="res://assets/sprites/la parca.png" id="1_yjrdn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rw06c"]
+atlas = ExtResource("1_yjrdn")
+region = Rect2(0, 0, 80, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_snggt"]
+atlas = ExtResource("1_yjrdn")
+region = Rect2(80, 0, 80, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ntf6o"]
+atlas = ExtResource("1_yjrdn")
+region = Rect2(160, 0, 80, 125)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l6ym1"]
+atlas = ExtResource("1_yjrdn")
+region = Rect2(240, 0, 80, 125)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smg5j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rw06c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_snggt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ntf6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l6ym1")
+}],
+"loop": true,
+"name": &"remo",
+"speed": 2.0
+}]
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1432312260 node_paths=PackedStringArray("anim")]
+script = ExtResource("1_rw06c")
+anim = NodePath("AnimatedSprite2D")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=330237525]
+sprite_frames = SubResource("SpriteFrames_smg5j")
+animation = &"remo"
+frame_progress = 0.6523022

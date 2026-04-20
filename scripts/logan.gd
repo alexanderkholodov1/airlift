@@ -3,6 +3,8 @@ extends CharacterBody2D
 signal health_changed(current_health: int, max_health: int)
 signal player_died
 
+const DEATH_SCREEN_SCENE := preload("res://scenes/ui/death_screen.tscn")
+
 const MAX_HEALTH: int = 5
 const DAMAGE_INVULNERABILITY_TIME: float = 1.0
 
@@ -145,6 +147,14 @@ func intentar_agarrar_objeto():
 			objeto_en_mano.ser_agarrado(self) 
 			break
 
+	if objeto_en_mano == null:
+		var areas = zona_deteccion.get_overlapping_areas()
+		for area in areas:
+			if area.has_method("ser_agarrado"):
+				objeto_en_mano = area
+				objeto_en_mano.ser_agarrado(self)
+				break
+
 	if objeto_en_mano != null:
 		return
 
@@ -261,6 +271,36 @@ func _die() -> void:
 		tween.tween_property(anim, "modulate:a", 0.0, 0.45)
 		await tween.finished
 
+	_show_death_screen()
+
+
+func _show_death_screen() -> void:
+	var tree := get_tree()
+	if tree == null:
+		return
+
+	var root := tree.current_scene
+	if root == null:
+		return
+
+	var death_ui := DEATH_SCREEN_SCENE.instantiate() as CanvasLayer
+	if death_ui == null:
+		tree.reload_current_scene()
+		return
+
+	if death_ui.has_method("set_death_context"):
+		death_ui.call("set_death_context", "salud agotada", root.name)
+
+	if death_ui.has_signal("retry_requested"):
+		death_ui.connect("retry_requested", Callable(self, "_on_death_retry_requested"), CONNECT_ONE_SHOT)
+
+	if death_ui.has_signal("exit_requested"):
+		death_ui.connect("exit_requested", Callable(self, "_on_death_retry_requested"), CONNECT_ONE_SHOT)
+
+	root.add_child(death_ui)
+
+
+func _on_death_retry_requested() -> void:
 	get_tree().reload_current_scene()
 
 

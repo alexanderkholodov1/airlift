@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://50jdguso86hw"]
+
+[ext_resource type="Script" uid="uid://cj60lfwu011st" path="res://scripts/ladrillo.gd" id="1_6ik0d"]
+[ext_resource type="Texture2D" uid="uid://wt5xm4cqeyp0" path="res://assets/sprites/ash.png" id="2_4e4jm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vihyi"]
+
+[node name="Projectile" type="RigidBody2D" unique_id=1255913011]
+position = Vector2(-1, -14.000001)
+scale = Vector2(0.16000004, 0.16000004)
+collision_layer = 2
+script = ExtResource("1_6ik0d")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=613378994]
+scale = Vector2(2.6333542, 2.6333542)
+texture = ExtResource("2_4e4jm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=884467631]
+position = Vector2(6.2499986, 5.960463e-06)
+scale = Vector2(4.5565166, 4.5565166)
+shape = SubResource("CircleShape2D_vihyi")
