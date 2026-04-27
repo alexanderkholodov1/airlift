@@ -1,3 +1,14 @@
 # Godot 4+ specific ignores
 .godot/
+.mono/
+*.import
+*.uid
+
+# Android build output and local editor state
 /android/
+/.vscode/
+/.idea/
+
+# OS noise
+.DS_Store
+Thumbs.db
