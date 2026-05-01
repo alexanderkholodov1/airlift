@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://4gleweoj60gl" path="res://scripts/purification/ui/death_screen.gd" id="1_4k70h"]
 [ext_resource type="PackedScene" path="res://scenes/ui/purification_decision_graph.tscn" id="2_h5nea"]
 [ext_resource type="PackedScene" path="res://scenes/ui/purification_heart_ui.tscn" id="3_a0pwr"]
-[ext_resource type="FontFile" uid="uid://b7xi7obkqtwhk" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_2qhts"]
+[ext_resource type="FontFile" uid="uid://h40mxugqjllf" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="4_2qhts"]
+[ext_resource type="AudioStream" uid="uid://62k5oo26j7wu" path="res://assets/music/kevin_macleod-penumbra.mp3" id="5_oad3j"]
 
 [sub_resource type="Theme" id="Theme_x8xpu"]
 default_font = ExtResource("4_2qhts")
@@ -110,3 +111,7 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "EL GRAFO MUESTRA TU RASTRO MORAL RECIENTE"
 horizontal_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=242378497]
+stream = ExtResource("5_oad3j")
+autoplay = true

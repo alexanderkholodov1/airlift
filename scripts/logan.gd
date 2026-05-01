@@ -16,7 +16,7 @@ var is_dead: bool = false
 # VARIABLES DE MOVIMIENTO Y ANIMACIÓN
 # ==========================================
 @export var anim: AnimatedSprite2D
-var speed: float = 170.0	
+@export var speed: float = 170.0
 @export var slope_max_angle_degrees: float = 50.0
 @export var slope_snap_length: float = 12.0
 @export var step_assist_max_height: float = 40.0
@@ -26,6 +26,7 @@ var speed: float = 170.0
 var puede_trepar: bool = false
 var trepando: bool = false
 var climb_speed: float = 120.0
+var can_move: bool = true
 
 # ==========================================
 # VARIABLES DE INTERACCIÓN (OBJETOS)
@@ -89,9 +90,9 @@ func _physics_process(delta):
 			velocity += get_gravity() * delta
 			
 		# Caminar arrastrando el mouse con el click izquierdo
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if can_move and Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			var direccion_mouse = get_local_mouse_position().x
-			
+
 			if direccion_mouse > 10:
 				velocity.x = speed
 				anim.flip_h = true # Mirar a la derecha
@@ -107,7 +108,7 @@ func _physics_process(delta):
 			
 	# 2. APLICAR EL MOVIMIENTO FINAL
 	move_and_slide()
-	
+
 	# 3. CONTROL DE ANIMACIONES
 	if trepando:
 		pass
@@ -117,23 +118,17 @@ func _physics_process(delta):
 		anim.play("IDLE")
 
 # ==========================================
-# DETECCIÓN DE CLICKS 
+# DETECCIÓN DE CLICKS
 # ==========================================
-func _input(event):
-	# Detectar Click Derecho PARA OBJETOS
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_RIGHT:
 		if event.pressed:
-			# IMPORTANTE: Solo agarramos o lanzamos cosas si NO estamos en una liana
 			if not puede_trepar:
 				if objeto_en_mano == null:
-					intentar_agarrar_objeto()
+					if _can_pickup_in_tutorial():
+						intentar_agarrar_objeto()
 				else:
 					lanzar_objeto()
-
-	if event is InputEventMouseButton and event.pressed:
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			if _try_interact_with_arches(event.button_index):
-				get_viewport().set_input_as_handled()
 
 # ==========================================
 # FUNCIONES DE OBJETOS
@@ -190,6 +185,13 @@ func lanzar_objeto():
 		
 		objeto_en_mano.ser_soltado(direccion * fuerza_lanzamiento)
 		objeto_en_mano = null
+
+
+func _can_pickup_in_tutorial() -> bool:
+	var scene_root = get_tree().current_scene
+	if scene_root != null and scene_root.has_method("is_pickup_allowed"):
+		return bool(scene_root.call("is_pickup_allowed"))
+	return true
 
 
 func _try_interact_with_arches(wheel_button: int) -> bool:

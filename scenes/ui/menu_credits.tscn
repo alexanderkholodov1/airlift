@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://dosmetj65o38n"]
+
+[ext_resource type="Script" uid="uid://be8a8cssci708" path="res://scripts/menu_credits.gd" id="1"]
+[ext_resource type="FontFile" uid="uid://h40mxugqjllf" path="res://assets/fonts/PixelOperator8-Bold.ttf" id="2"]
+
+[sub_resource type="Theme" id="Theme_1"]
+default_font = ExtResource("2")
+default_font_size = 22
+
+[node name="MenuCredits" type="Control" unique_id=89205422]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1")
+
+[node name="Root" type="ColorRect" parent="." unique_id=476491427]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0313726, 0.027451, 0.0588235, 0.92)
+
+[node name="Panel" type="PanelContainer" parent="Root" unique_id=482274974]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 10.0
+offset_right = -14.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_1")
+
+[node name="Margin" type="MarginContainer" parent="Root/Panel" unique_id=1481478484]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Root/Panel/Margin" unique_id=1796645588]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Root/Panel/Margin/VBox" unique_id=174374365]
+layout_mode = 2
+theme_override_font_sizes/font_size = 42
+text = "CREDITOS"
+horizontal_alignment = 1
+
+[node name="CreditsText" type="RichTextLabel" parent="Root/Panel/Margin/VBox" unique_id=1331790537]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+fit_content = true
+autowrap_mode = 2
+
+[node name="BackButton" type="Button" parent="Root/Panel/Margin/VBox" unique_id=660591339]
+custom_minimum_size = Vector2(0, 42)
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "VOLVER AL MENU"

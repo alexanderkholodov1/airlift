@@ -1,14 +1,14 @@
 [gd_scene format=4 uid="uid://cdd61lcr630vv"]
 
 [ext_resource type="Script" uid="uid://bupysdi0c0ytn" path="res://scripts/boss_controller.gd" id="1_xdvfk"]
-[ext_resource type="Texture2D" uid="uid://bmpm4gdmcm8am" path="res://assets/sprites/limbo_blocks.png" id="2_7ft05"]
+[ext_resource type="Texture2D" uid="uid://bwqwpr1ftjfu1" path="res://assets/sprites/limbo_blocks.png" id="2_7ft05"]
 [ext_resource type="Script" uid="uid://baty2l1qhig7u" path="res://scripts/portal.gd" id="3_4ag8t"]
 [ext_resource type="PackedScene" uid="uid://dqivordo81b04" path="res://scenes/slastic.tscn" id="4_7ft05"]
 [ext_resource type="PackedScene" uid="uid://c5yoknqgxld1t" path="res://scenes/Logan.tscn" id="4_dpxgc"]
 [ext_resource type="PackedScene" uid="uid://dw84fljg3xtdi" path="res://scenes/Plug.tscn" id="5_dpxgc"]
 [ext_resource type="PackedScene" uid="uid://d2ut5m0rv6kl2" path="res://scenes/Lianas.tscn" id="6_4ag8t"]
 [ext_resource type="PackedScene" uid="uid://bdoumg4ndt3yn" path="res://scenes/Ladrillo.tscn" id="8_oexds"]
-[ext_resource type="AudioStream" uid="uid://g4yejnqpmcss" path="res://assets/music/consecuente_boss.mp3" id="9_naajo"]
+[ext_resource type="AudioStream" uid="uid://bgagidw30hptg" path="res://assets/music/consecuente_boss.mp3" id="9_naajo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_oexds"]
 texture = ExtResource("2_7ft05")
@@ -148,7 +148,7 @@ position = Vector2(-13.000046, 288.99976)
 scale = Vector2(0.80343, 0.80343)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=1396972167]
-position = Vector2(-3, -119)
+position = Vector2(-3, -522.7583)
 scale = Vector2(-32.8348, -181.89418)
 zoom = Vector2(0.505, 0.505)
 

@@ -1,22 +1,23 @@
 [gd_scene format=4 uid="uid://xkoeivep6wkv"]
 
-[ext_resource type="Texture2D" uid="uid://l1qm1t1h1fea" path="res://assets/sprites/limbo_back.png" id="1_hq8n3"]
-[ext_resource type="Texture2D" uid="uid://btb1ft7mq8plf" path="res://assets/sprites/limbo_trees.png" id="1_rdic8"]
-[ext_resource type="Texture2D" uid="uid://bmpm4gdmcm8am" path="res://assets/sprites/limbo_blocks.png" id="1_vawkx"]
-[ext_resource type="Texture2D" uid="uid://cytfl7dninmey" path="res://assets/sprites/limbo_mountain.png" id="2_s8m1n"]
+[ext_resource type="Texture2D" uid="uid://cyd0k4ijljkam" path="res://assets/sprites/limbo_back.png" id="1_hq8n3"]
+[ext_resource type="Texture2D" uid="uid://dmligw0dfufj7" path="res://assets/sprites/limbo_trees.png" id="1_rdic8"]
+[ext_resource type="Texture2D" uid="uid://bwqwpr1ftjfu1" path="res://assets/sprites/limbo_blocks.png" id="1_vawkx"]
+[ext_resource type="Texture2D" uid="uid://bbw8ypnelke64" path="res://assets/sprites/limbo_mountain.png" id="2_s8m1n"]
 [ext_resource type="PackedScene" uid="uid://c5yoknqgxld1t" path="res://scenes/Logan.tscn" id="3_6xu76"]
-[ext_resource type="Texture2D" uid="uid://bv47gpdqhygf1" path="res://assets/sprites/limbo_grass.png" id="3_54dvj"]
-[ext_resource type="Texture2D" uid="uid://cd5d4h5vi8v6r" path="res://assets/sprites/limbo_mist.png" id="4_lsewc"]
+[ext_resource type="Texture2D" uid="uid://culveffd3iw3r" path="res://assets/sprites/limbo_grass.png" id="3_54dvj"]
+[ext_resource type="Texture2D" uid="uid://c6ocbhty5frvi" path="res://assets/sprites/limbo_mist.png" id="4_lsewc"]
 [ext_resource type="PackedScene" uid="uid://bdoumg4ndt3yn" path="res://scenes/Ladrillo.tscn" id="5_o3ujd"]
 [ext_resource type="PackedScene" uid="uid://d263gbuv08c6q" path="res://scenes/enemy.tscn" id="6_s8m1n"]
 [ext_resource type="PackedScene" uid="uid://d2ut5m0rv6kl2" path="res://scenes/Lianas.tscn" id="7_cx3w7"]
-[ext_resource type="Texture2D" uid="uid://dibtj5l0l7s3g" path="res://assets/sprites/ruins.png" id="7_lsewc"]
-[ext_resource type="Texture2D" uid="uid://bjqeu54bdywwm" path="res://assets/sprites/Red 3s.png" id="7_o3ujd"]
+[ext_resource type="Texture2D" uid="uid://dmu1m6h13m1wh" path="res://assets/sprites/ruins.png" id="7_lsewc"]
+[ext_resource type="Texture2D" uid="uid://dt5uwu2o7fxmr" path="res://assets/sprites/Red 3s.png" id="7_o3ujd"]
 [ext_resource type="Script" uid="uid://baty2l1qhig7u" path="res://scripts/portal.gd" id="8_6jr7n"]
-[ext_resource type="Texture2D" uid="uid://5la1eh350ocr" path="res://assets/sprites/limbo_grass-export.png" id="9_6jr7n"]
+[ext_resource type="Texture2D" uid="uid://ckpdb5o1sfq5n" path="res://assets/sprites/limbo_grass-export.png" id="9_6jr7n"]
 [ext_resource type="Script" uid="uid://cd0u1q7cj2vmh" path="res://scripts/plane_arch.gd" id="9_p7o08"]
-[ext_resource type="Texture2D" uid="uid://ypaidrrowfd6" path="res://assets/sprites/Barco .png" id="10_cx3w7"]
-[ext_resource type="AudioStream" uid="uid://dp6mv12xynckb" path="res://assets/music/hollow_limbo.mp3" id="15_j2nke"]
+[ext_resource type="Texture2D" uid="uid://cpaphqas0em2w" path="res://assets/sprites/Barco .png" id="10_cx3w7"]
+[ext_resource type="Texture2D" uid="uid://b5gxc5lmbwlw8" path="res://assets/sprites/Nubes.png" id="15_cx3w7"]
+[ext_resource type="AudioStream" uid="uid://c5vytbp865o1f" path="res://assets/music/hollow_limbo.mp3" id="15_j2nke"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6xu76"]
 texture = ExtResource("1_rdic8")
@@ -1685,6 +1686,13 @@ size = Vector2(95, 107)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2nke"]
 size = Vector2(196, 242)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mxrk2"]
+particle_flag_disable_z = true
+direction = Vector3(100, 0, 0)
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+color = Color(1, 1, 1, 0.019607844)
+
 [sub_resource type="Environment" id="Environment_lsewc"]
 background_mode = 3
 tonemap_mode = 1
@@ -1842,6 +1850,20 @@ position = Vector2(-3, -119)
 scale = Vector2(-33.631386, -181.89418)
 zoom = Vector2(0.72, 0.72)
 
+[node name="GPUParticles2D2_Back1" type="GPUParticles2D" parent="CharacterBody2D" unique_id=1916607246]
+position = Vector2(-120.7323, 133.17899)
+scale = Vector2(1.2446631, 1.2446631)
+amount = 25
+texture = ExtResource("15_cx3w7")
+process_material = SubResource("ParticleProcessMaterial_mxrk2")
+
+[node name="GPUParticles2D2_Back2" type="GPUParticles2D" parent="CharacterBody2D" unique_id=2026216737]
+position = Vector2(1201.1002, 100.81774)
+scale = Vector2(1.2446628, 1.2446628)
+amount = 25
+texture = ExtResource("15_cx3w7")
+process_material = SubResource("ParticleProcessMaterial_mxrk2")
+
 [node name="Enemy" parent="." unique_id=709077365 instance=ExtResource("6_s8m1n")]
 position = Vector2(8720, -78.00003)
 
@@ -1892,6 +1914,20 @@ position = Vector2(146, -119)
 scale = Vector2(0.5262433, 0.5116205)
 texture = ExtResource("2_s8m1n")
 
+[node name="GPUParticles2D2_Front1" type="GPUParticles2D" parent="." unique_id=966775522]
+position = Vector2(-86, 142)
+scale = Vector2(0.9999999, 0.9999999)
+amount = 20
+texture = ExtResource("15_cx3w7")
+process_material = SubResource("ParticleProcessMaterial_mxrk2")
+
+[node name="GPUParticles2D2_Front2" type="GPUParticles2D" parent="." unique_id=84651145]
+position = Vector2(-1212, 120)
+scale = Vector2(0.99999976, 0.99999976)
+amount = 20
+texture = ExtResource("15_cx3w7")
+process_material = SubResource("ParticleProcessMaterial_mxrk2")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=713570256]
 environment = SubResource("Environment_lsewc")
 
@@ -1899,4 +1935,5 @@ environment = SubResource("Environment_lsewc")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=470985611]
 stream = ExtResource("15_j2nke")
+volume_db = 7.907
 autoplay = true

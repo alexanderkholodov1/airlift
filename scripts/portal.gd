@@ -1,6 +1,5 @@
 extends Area2D
 
-@export_enum("WHEEL_UP", "WHEEL_DOWN") var scroll_direction: String = "WHEEL_UP"
 @export var portal_enabled: bool = true
 
 var player_inside: bool = false
@@ -36,14 +35,9 @@ func _input(event: InputEvent) -> void:
 	if not portal_enabled:
 		return
 
-	if event is InputEventMouseButton and event.pressed:
-		var correct_scroll = (
-			event.button_index == MOUSE_BUTTON_WHEEL_UP and scroll_direction == "WHEEL_UP"
-		) or (
-			event.button_index == MOUSE_BUTTON_WHEEL_DOWN and scroll_direction == "WHEEL_DOWN"
-		)
-		if correct_scroll:
-			_try_activate_portal()
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_RIGHT:
+		get_viewport().set_input_as_handled()
+		_try_activate_portal()
 
 func _on_body_entered(body: Node2D) -> void:
 	if _is_player_body(body):

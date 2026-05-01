@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 SceneTransition="*uid://bibf1oroi7onw"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/github_copilot/plugin.cfg")

@@ -4,17 +4,14 @@ extends Area2D
 @export_enum("ACTION", "RIGHT_CLICK", "WHEEL_UP", "WHEEL_DOWN", "WHEEL_ANY") var interaction_type: String = "ACTION"
 @export var interaction_action: StringName = &"ui_accept"
 
-# Ajusta estos bits a los TileMap con los que debe colisionar el jugador en cada plano.
 @export_flags_2d_physics var main_collision_mask: int = 1
 @export_flags_2d_physics var foreground_collision_mask: int = 2
 @export_flags_2d_physics var main_collision_layer: int = 1
 @export_flags_2d_physics var foreground_collision_layer: int = 1
 
-# Mantiene al personaje visible, pero puedes enviarlo delante/detras segun tu escena.
 @export var main_z_index: int = 0
 @export var foreground_z_index: int = 0
 
-# Marcadores opcionales para ubicar al jugador al cambiar de plano.
 @export var snap_marker_main: NodePath
 @export var snap_marker_foreground: NodePath
 @export var auto_snap_if_no_marker: bool = true
@@ -29,33 +26,80 @@ var current_player: CharacterBody2D = null
 var can_switch: bool = true
 var is_handling_input: bool = false
 
+var _hint_label: Label = null
+var _hint_visible: bool = false
+var _hint_check_frame: int = 0
+
 
 func _ready() -> void:
+	GameLocale.load_language()
 	_apply_name_based_defaults()
 	monitoring = true
 	monitorable = true
 	set_process_input(true)
-	set_process_unhandled_input(true)
+	set_process(true)
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+	_create_hint_label()
+
+
+func _create_hint_label() -> void:
+	if name != "ArchEntrance" and name != "ArchExit":
+		return
+
+	_hint_label = Label.new()
+	_hint_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_hint_label.add_theme_font_size_override("font_size", 30)
+	_hint_label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	_hint_label.add_theme_color_override("font_shadow_color", Color(0, 0, 0, 0.8))
+	_hint_label.add_theme_constant_override("shadow_offset_x", 2)
+	_hint_label.add_theme_constant_override("shadow_offset_y", 2)
+	_hint_label.modulate.a = 0.0
+	_hint_label.position = Vector2(-120, -100)
+	_hint_label.z_index = 20
+	_hint_label.text = _build_hint_text(null)
+	add_child(_hint_label)
+
+
+func _build_hint_text(player: CharacterBody2D) -> String:
+	var btn := GameLocale.t("arch.button")
+	if name == "ArchExit":
+		return GameLocale.t("arch.exit") + "\n" + btn
+
+	var plane := "main"
+	if player != null:
+		plane = str(player.get_meta("world_plane", "main"))
+	var action_key := "arch.enter_foreground" if plane == "foreground" else "arch.enter"
+	return GameLocale.t(action_key) + "\n" + btn
+
+
+func _process(_delta: float) -> void:
+	if _hint_label == null:
+		return
+
+	# Revisar proximidad cada 12 frames para no buscar en el árbol cada frame.
+	_hint_check_frame += 1
+	if _hint_check_frame < 12:
+		return
+	_hint_check_frame = 0
+
+	var found: CharacterBody2D = current_player if player_inside else _find_player_nearby()
+	var should_show := found != null
+
+	if should_show != _hint_visible:
+		_hint_visible = should_show
+		var tween := create_tween()
+		tween.tween_property(_hint_label, "modulate:a", 1.0 if should_show else 0.0, 0.25)
+
+	if should_show and found != null:
+		_hint_label.text = _build_hint_text(found)
 
 
 func _input(event: InputEvent) -> void:
-	_try_handle_interaction_event(event)
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	_try_handle_interaction_event(event)
-
-
-func _try_handle_interaction_event(event: InputEvent) -> void:
-	if is_handling_input:
-		return
-
-	if not can_switch:
-		return
-
 	if not _matches_interaction(event):
+		return
+
+	if is_handling_input:
 		return
 
 	is_handling_input = true
@@ -66,9 +110,22 @@ func _try_handle_interaction_event(event: InputEvent) -> void:
 		return
 	current_player = player
 
+	# Consumir el evento para que el grab/throw de Logan no se active cerca de un arco.
+	if interaction_type == "RIGHT_CLICK":
+		get_viewport().set_input_as_handled()
+
+	if not can_switch:
+		is_handling_input = false
+		return
+
 	var switched := _switch_player_plane()
 	_play_interaction_feedback(player, switched)
 	is_handling_input = false
+
+
+func _try_handle_interaction_event(event: InputEvent) -> void:
+	# Mantenida por compatibilidad; ahora todo pasa por _input.
+	pass
 
 
 func _matches_interaction(event: InputEvent) -> bool:
@@ -184,7 +241,6 @@ func _compute_auto_snap_position(target_plane: String, player: CharacterBody2D) 
 	var origin := _interaction_origin()
 	var dir_x := 1.0 if target_plane == "foreground" else -1.0
 
-	# Si el jugador ya esta a un lado del arco, lo cruzamos al lado opuesto real.
 	if player.global_position.x >= origin.x:
 		dir_x = -1.0 if dir_x > 0.0 else 1.0
 
@@ -246,19 +302,16 @@ func _find_player_nearby() -> CharacterBody2D:
 
 
 func _resolve_player_for_interaction() -> CharacterBody2D:
-	# 1) Prioridad: cuerpos realmente dentro del Area2D (más confiable).
 	for body in get_overlapping_bodies():
 		if body is Node2D and _is_player(body):
 			player_inside = true
 			return body
 
-	# 2) Si ya teníamos referencia válida, aceptarla solo si está cerca.
 	if current_player != null and is_instance_valid(current_player):
 		var current_dist := _distance_to_player(current_player)
 		if player_inside or current_dist <= proximity_activation_radius:
 			return current_player
 
-	# 3) Fallback por proximidad cuando el CollisionShape del arco está desalineado.
 	var nearby := _find_player_nearby()
 	if nearby != null:
 		var d := _distance_to_player(nearby)
@@ -307,6 +360,7 @@ func _play_interaction_feedback(player: CharacterBody2D, switched: bool) -> void
 
 
 func _apply_player_plane_visual(player: CharacterBody2D, target_plane: String) -> void:
+	# Ligeramente oscuro cuando el personaje está en el "otro plano".
 	if target_plane == "foreground":
 		player.modulate = Color(0.82, 0.82, 0.82, 1.0)
 	else:
@@ -314,13 +368,12 @@ func _apply_player_plane_visual(player: CharacterBody2D, target_plane: String) -
 
 
 func _apply_name_based_defaults() -> void:
-	# Si el nodo ya está configurado en inspector, respetamos esos valores.
 	if interaction_type != "ACTION":
 		return
 
 	if name == "ArchEntrance":
 		plane_mode = "TOGGLE"
-		interaction_type = "WHEEL_ANY"
+		interaction_type = "RIGHT_CLICK"
 		main_collision_mask = 1
 		foreground_collision_mask = 2
 		main_collision_layer = 1
@@ -333,7 +386,7 @@ func _apply_name_based_defaults() -> void:
 
 	if name == "ArchExit":
 		plane_mode = "TO_MAIN"
-		interaction_type = "WHEEL_DOWN"
+		interaction_type = "RIGHT_CLICK"
 		main_collision_mask = 1
 		foreground_collision_mask = 2
 		main_collision_layer = 1

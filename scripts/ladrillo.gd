@@ -13,6 +13,7 @@ const BRICK_DEFAULT_LAYER: int = 2
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
+var _original_sprite_scale: Vector2 = Vector2.ONE
 
 
 func _ready() -> void:
@@ -21,6 +22,10 @@ func _ready() -> void:
 	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
 	freeze_mode = RigidBody2D.FREEZE_MODE_STATIC
 	body_entered.connect(_on_body_entered)
+
+	# Guardamos la escala original del sprite para poder restaurarla al agarrar
+	if sprite != null:
+		_original_sprite_scale = sprite.scale
 
 func _physics_process(_delta):
 	if rest_cooldown > 0.0:
@@ -52,12 +57,18 @@ func ser_agarrado(entidad_jugador):
 	lanzamiento_activo = false
 	
 	# 3. Importante: Desactivamos las físicas mientras se carga
-	freeze = true 
-	
+	# Guardamos el tamaño original del sprite y collision para restaurar al soltar
+	if sprite != null:
+		# Restaurar la escala original para evitar que se agrande al seguir al jugador
+		sprite.scale = _original_sprite_scale
+
+	freeze = true
+
 	# 4. Desactivamos colisiones con el jugador para evitar bugs de empuje
 	if collision != null:
 		collision.disabled = true
-	collision_layer = BRICK_DEFAULT_LAYER
+	# Cambiar layer para que no colisione con jugador mientras en mano
+	collision_layer = 0
 	_set_vivo_visual()
 
 func ser_soltado(impulso = Vector2.ZERO):
@@ -70,6 +81,7 @@ func ser_soltado(impulso = Vector2.ZERO):
 	freeze = false
 	if collision != null:
 		collision.disabled = false
+	# Restaurar layer por defecto
 	collision_layer = BRICK_DEFAULT_LAYER
 
 	var fuerza = maxf(impulso.length(), MIN_THROW_FORCE)

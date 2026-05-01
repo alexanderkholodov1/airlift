@@ -18,6 +18,9 @@ enum SpiderMode {
 @export var emerge_offset: Vector2 = Vector2(10.0, -4.0)
 
 @export var target_path: NodePath
+@export var damage_per_hit: int = 1
+@export var damage_radius: float = 28.0
+@export var damage_interval: float = 0.9
 
 var target: Node2D
 var _wander_time := 0.0
@@ -25,6 +28,7 @@ var _mode: SpiderMode = SpiderMode.CHASE
 var _emerge_time := 0.0
 var _emerge_start := Vector2.ZERO
 var _emerge_end := Vector2.ZERO
+var _damage_cooldown: float = 0.0
 
 
 func _ready() -> void:
@@ -64,6 +68,9 @@ func configure_as_descender(new_descend_speed: float = -1.0, cleanup_y: float = 
 
 
 func _physics_process(delta: float) -> void:
+	if _damage_cooldown > 0.0:
+		_damage_cooldown -= delta
+
 	if _mode == SpiderMode.DESCEND:
 		_update_descend_mode(delta)
 		queue_redraw()
@@ -74,6 +81,12 @@ func _physics_process(delta: float) -> void:
 	if target != null and is_instance_valid(target):
 		var to_target := target.global_position - global_position
 		var distance_to_target: float = to_target.length()
+
+		if distance_to_target < damage_radius and _damage_cooldown <= 0.0:
+			if target.has_method("receive_damage"):
+				target.call("receive_damage", damage_per_hit)
+			_damage_cooldown = damage_interval
+
 		var target_speed: float = _get_target_speed()
 
 		if target_speed > moving_target_speed_threshold:

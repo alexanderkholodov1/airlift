@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://caypfa60ou0kt"]
+
+[ext_resource type="Script" uid="uid://t010h06lrxbn" path="res://scripts/ash.gd" id="1_2h5l1"]
+[ext_resource type="Texture2D" uid="uid://b0yiwisr0gvl0" path="res://assets/sprites/ash.png" id="2_2h5l1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2h5l1"]
+radius = 20.389109
+
+[node name="Ash" type="RigidBody2D" unique_id=1255913011]
+position = Vector2(-1, -14.000001)
+scale = Vector2(0.16000004, 0.16000004)
+collision_layer = 2
+freeze = true
+script = ExtResource("1_2h5l1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=613378994]
+position = Vector2(-6.2499986, 5.960463e-06)
+scale = Vector2(2.2743304, 2.2743304)
+texture = ExtResource("2_2h5l1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=884467631]
+scale = Vector2(2.0565376, 2.0565376)
+shape = SubResource("CircleShape2D_2h5l1")

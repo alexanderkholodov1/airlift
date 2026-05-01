@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -n '1704,1712p' \"C:/My Files/airlift/scenes/limbo.tscn\")",
+      "Bash(sed -n '1751,1770p' \"C:/My Files/airlift/scenes/limbo.tscn\")",
+      "Bash(sed -n '1829,1870p' \"C:/My Files/airlift/scenes/limbo.tscn\")",
+      "Bash(grep \"\\\\.uid$\")",
+      "Bash(python3 *)"
+    ]
+  }
+}

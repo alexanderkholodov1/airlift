@@ -1,12 +1,12 @@
 [gd_scene format=3 uid="uid://bnckp0gupk2ey"]
 
 [ext_resource type="Theme" uid="uid://b3dh1hkyfjje0" path="res://themes/Main_Scene.tres" id="1_e2wy0"]
-[ext_resource type="Texture2D" uid="uid://dv0nmc0thj0eb" path="res://assets/sprites/Menu.PNG" id="1_qqyc6"]
+[ext_resource type="Texture2D" uid="uid://cfajb2lvn4pjo" path="res://assets/sprites/Menu.PNG" id="1_qqyc6"]
 [ext_resource type="StyleBox" uid="uid://cvbi6snv4v4qw" path="res://themes/Normal.tres" id="2_o3wkw"]
 [ext_resource type="StyleBox" uid="uid://cp08okob8q2lt" path="res://themes/Pressed.tres" id="3_f0b8s"]
 [ext_resource type="StyleBox" uid="uid://dlci6y6e5uwob" path="res://themes/Hover.tres" id="4_qqyc6"]
 [ext_resource type="Script" uid="uid://dxbig1trbvfla" path="res://scripts/jugar.gd" id="5_f0b8s"]
-[ext_resource type="AudioStream" uid="uid://drkt2lduqgyd8" path="res://assets/music/alien_limbo.mp3" id="7_y07vu"]
+[ext_resource type="AudioStream" uid="uid://2phldmqbk7mp" path="res://assets/music/alien_limbo.mp3" id="7_y07vu"]
 
 [sub_resource type="GDScript" id="GDScript_o3wkw"]
 script/source = "extends Button
@@ -34,6 +34,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("5_f0b8s")
 
 [node name="TextureRect" type="TextureRect" parent="." unique_id=408879035]
 layout_mode = 0
@@ -66,7 +67,22 @@ theme_override_styles/normal = ExtResource("2_o3wkw")
 theme_override_styles/pressed = ExtResource("3_f0b8s")
 theme_override_styles/hover = ExtResource("4_qqyc6")
 text = "Jugar"
-script = ExtResource("5_f0b8s")
+
+[node name="Creditos" type="Button" parent="VBoxContainer" unique_id=1825024502]
+layout_mode = 2
+theme = ExtResource("1_e2wy0")
+theme_override_styles/normal = ExtResource("2_o3wkw")
+theme_override_styles/pressed = ExtResource("3_f0b8s")
+theme_override_styles/hover = ExtResource("4_qqyc6")
+text = "Creditos"
+
+[node name="Ajustes" type="Button" parent="VBoxContainer" unique_id=1923855931]
+layout_mode = 2
+theme = ExtResource("1_e2wy0")
+theme_override_styles/normal = ExtResource("2_o3wkw")
+theme_override_styles/pressed = ExtResource("3_f0b8s")
+theme_override_styles/hover = ExtResource("4_qqyc6")
+text = "Ajustes"
 
 [node name="Salir" type="Button" parent="VBoxContainer" unique_id=1988148905]
 layout_mode = 2
@@ -75,7 +91,6 @@ theme_override_styles/normal = ExtResource("2_o3wkw")
 theme_override_styles/pressed = ExtResource("3_f0b8s")
 theme_override_styles/hover = ExtResource("4_qqyc6")
 text = "Salir"
-script = SubResource("GDScript_o3wkw")
 
 [node name="Control" type="Control" parent="." unique_id=1064315931]
 layout_mode = 1
