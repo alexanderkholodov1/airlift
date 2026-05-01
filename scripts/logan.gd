@@ -139,7 +139,8 @@ func intentar_agarrar_objeto():
 	for cuerpo in cuerpos:
 		if cuerpo.has_method("ser_agarrado"):
 			objeto_en_mano = cuerpo
-			objeto_en_mano.ser_agarrado(self) 
+			objeto_en_mano.ser_agarrado(self)
+			_register_pickup_for_purification(objeto_en_mano)
 			break
 
 	if objeto_en_mano == null:
@@ -148,6 +149,7 @@ func intentar_agarrar_objeto():
 			if area.has_method("ser_agarrado"):
 				objeto_en_mano = area
 				objeto_en_mano.ser_agarrado(self)
+				_register_pickup_for_purification(objeto_en_mano)
 				break
 
 	if objeto_en_mano != null:
@@ -177,6 +179,22 @@ func intentar_agarrar_objeto():
 	if candidato != null:
 		objeto_en_mano = candidato
 		objeto_en_mano.ser_agarrado(self)
+		_register_pickup_for_purification(objeto_en_mano)
+
+
+func _register_pickup_for_purification(objeto) -> void:
+	if objeto == null:
+		return
+	var script_resource = objeto.get_script()
+	if not (script_resource is Script):
+		return
+	if script_resource.resource_path != "res://scripts/ladrillo.gd":
+		return
+
+	var manager := get_node_or_null("/root/PurificationManager")
+	if manager == null or not manager.has_method("ingest_game_signal"):
+		return
+	manager.call("ingest_game_signal", "hoarded_bricks", {"intensity": 1.0})
 
 func lanzar_objeto():
 	if objeto_en_mano:
@@ -291,7 +309,7 @@ func _show_death_screen() -> void:
 		return
 
 	if death_ui.has_method("set_death_context"):
-		death_ui.call("set_death_context", "salud agotada", root.name)
+		death_ui.call("set_death_context", "death.reason.health_depleted", root.name)
 
 	if death_ui.has_signal("retry_requested"):
 		death_ui.connect("retry_requested", Callable(self, "_on_death_retry_requested"), CONNECT_ONE_SHOT)

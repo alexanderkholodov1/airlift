@@ -201,7 +201,19 @@ func _switch_player_plane() -> bool:
 	can_switch = false
 	var timer := get_tree().create_timer(switch_cooldown)
 	timer.timeout.connect(_on_switch_cooldown_timeout)
+	_record_arch_use_for_purification()
 	return true
+
+
+func _record_arch_use_for_purification() -> void:
+	if name != "ArchEntrance":
+		return
+	var current_scene := get_tree().current_scene
+	if current_scene == null:
+		return
+	if current_scene.scene_file_path != "res://scenes/limbo.tscn":
+		return
+	current_scene.set_meta("limbo_arch_entered", true)
 
 
 func _on_switch_cooldown_timeout() -> void:

@@ -16,7 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://ckpdb5o1sfq5n" path="res://assets/sprites/limbo_grass-export.png" id="9_6jr7n"]
 [ext_resource type="Script" uid="uid://cd0u1q7cj2vmh" path="res://scripts/plane_arch.gd" id="9_p7o08"]
 [ext_resource type="Texture2D" uid="uid://cpaphqas0em2w" path="res://assets/sprites/Barco .png" id="10_cx3w7"]
-[ext_resource type="Texture2D" uid="uid://b5gxc5lmbwlw8" path="res://assets/sprites/Nubes.png" id="15_cx3w7"]
 [ext_resource type="AudioStream" uid="uid://c5vytbp865o1f" path="res://assets/music/hollow_limbo.mp3" id="15_j2nke"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6xu76"]
@@ -1686,13 +1685,6 @@ size = Vector2(95, 107)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j2nke"]
 size = Vector2(196, 242)
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mxrk2"]
-particle_flag_disable_z = true
-direction = Vector3(100, 0, 0)
-initial_velocity_max = 10.0
-gravity = Vector3(0, 0, 0)
-color = Color(1, 1, 1, 0.019607844)
-
 [sub_resource type="Environment" id="Environment_lsewc"]
 background_mode = 3
 tonemap_mode = 1
@@ -1702,6 +1694,17 @@ glow_strength = 0.58
 glow_bloom = 0.55
 
 [node name="Game" type="Node2D" unique_id=507570553]
+
+[node name="far_background2" type="Parallax2D" parent="." unique_id=944030838]
+modulate = Color(0.41030458, 0.43288666, 0.5819286, 1)
+scroll_offset = Vector2(-23, -558)
+repeat_size = Vector2(758, 0)
+repeat_times = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="far_background2" unique_id=1830948331]
+position = Vector2(12, -370)
+scale = Vector2(0.7902778, 0.7902778)
+texture = ExtResource("1_hq8n3")
 
 [node name="far_background" type="Parallax2D" parent="." unique_id=176122333]
 repeat_size = Vector2(758, 0)
@@ -1846,23 +1849,9 @@ position = Vector2(-976.00006, -66.00001)
 scale = Vector2(0.80343, 0.80343)
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D" unique_id=262146270]
-position = Vector2(-3, -119)
+position = Vector2(-2.4892657, -135.6683)
 scale = Vector2(-33.631386, -181.89418)
 zoom = Vector2(0.72, 0.72)
-
-[node name="GPUParticles2D2_Back1" type="GPUParticles2D" parent="CharacterBody2D" unique_id=1916607246]
-position = Vector2(-120.7323, 133.17899)
-scale = Vector2(1.2446631, 1.2446631)
-amount = 25
-texture = ExtResource("15_cx3w7")
-process_material = SubResource("ParticleProcessMaterial_mxrk2")
-
-[node name="GPUParticles2D2_Back2" type="GPUParticles2D" parent="CharacterBody2D" unique_id=2026216737]
-position = Vector2(1201.1002, 100.81774)
-scale = Vector2(1.2446628, 1.2446628)
-amount = 25
-texture = ExtResource("15_cx3w7")
-process_material = SubResource("ParticleProcessMaterial_mxrk2")
 
 [node name="Enemy" parent="." unique_id=709077365 instance=ExtResource("6_s8m1n")]
 position = Vector2(8720, -78.00003)
@@ -1904,6 +1893,17 @@ modulate = Color(0.5940349, 0.5940349, 0.5940349, 1)
 tile_map_data = PackedByteArray("AAA0AP//AAAKAAIAAABKAP//AAAKAAIAAADMAP//AAAKAAIAAAA=")
 tile_set = SubResource("TileSet_caiif")
 
+[node name="front_hills2" type="Parallax2D" parent="." unique_id=136213938]
+rotation = 3.1415927
+scroll_offset = Vector2(12, 409)
+repeat_size = Vector2(416.315, 0)
+repeat_times = 100
+
+[node name="Sprite2D" type="Sprite2D" parent="front_hills2" unique_id=1433990865]
+position = Vector2(146, -119)
+scale = Vector2(0.5262433, 0.5116205)
+texture = ExtResource("2_s8m1n")
+
 [node name="front_hills" type="Parallax2D" parent="." unique_id=691409386]
 scroll_offset = Vector2(-215, 285)
 repeat_size = Vector2(416.315, 0)
@@ -1913,20 +1913,6 @@ repeat_times = 100
 position = Vector2(146, -119)
 scale = Vector2(0.5262433, 0.5116205)
 texture = ExtResource("2_s8m1n")
-
-[node name="GPUParticles2D2_Front1" type="GPUParticles2D" parent="." unique_id=966775522]
-position = Vector2(-86, 142)
-scale = Vector2(0.9999999, 0.9999999)
-amount = 20
-texture = ExtResource("15_cx3w7")
-process_material = SubResource("ParticleProcessMaterial_mxrk2")
-
-[node name="GPUParticles2D2_Front2" type="GPUParticles2D" parent="." unique_id=84651145]
-position = Vector2(-1212, 120)
-scale = Vector2(0.99999976, 0.99999976)
-amount = 20
-texture = ExtResource("15_cx3w7")
-process_material = SubResource("ParticleProcessMaterial_mxrk2")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=713570256]
 environment = SubResource("Environment_lsewc")

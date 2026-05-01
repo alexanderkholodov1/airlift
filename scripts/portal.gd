@@ -105,6 +105,9 @@ func _register_limbo_outcome_if_needed(target_scene: String) -> void:
 	if _has_alive_limbo_enemy(current_scene):
 		purification_manager.call("ingest_game_signal", "limbo_enemy_spared", {"intensity": 1.0})
 
+	if not bool(current_scene.get_meta("limbo_arch_entered", false)):
+		purification_manager.call("ingest_game_signal", "ignored_npc_favor", {"intensity": 1.5})
+
 
 func _has_alive_limbo_enemy(root: Node) -> bool:
 	var stack: Array = [root]

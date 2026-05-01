@@ -56,6 +56,8 @@ var move_speed = 50
 var _awaiting_action := false
 var _current_action := ""
 var _had_object := false
+var _line_started_at_ms: int = 0
+const _FAST_SKIP_THRESHOLD_MS: int = 1200
 
 @onready var _action_prompt: Control = $CanvasLayer/ActionPrompt
 @onready var _prompt_icon: Label = $CanvasLayer/ActionPrompt/HBox/Icon
@@ -128,6 +130,7 @@ func start_dialogue():
 
 
 func next_dialogue():
+	_register_skip_speed_for_purification()
 	current_dialogue_index += 1
 
 	if current_dialogue_index >= dialogues.size():
@@ -136,9 +139,24 @@ func next_dialogue():
 		_enter_dialogue()
 
 
+func _register_skip_speed_for_purification() -> void:
+	if _line_started_at_ms <= 0:
+		return
+	var elapsed := Time.get_ticks_msec() - _line_started_at_ms
+	if elapsed >= _FAST_SKIP_THRESHOLD_MS:
+		return
+	var manager := get_node_or_null("/root/PurificationManager")
+	if manager == null or not manager.has_method("ingest_game_signal"):
+		return
+	# Fast skip without listening -> Soberbia.
+	var ratio := clampf(1.0 - float(elapsed) / float(_FAST_SKIP_THRESHOLD_MS), 0.2, 1.0)
+	manager.call("ingest_game_signal", "ignored_shortcuts_or_defense", {"intensity": ratio})
+
+
 func _enter_dialogue() -> void:
 	char_index = 0
 	timer = 0.0
+	_line_started_at_ms = Time.get_ticks_msec()
 	var entry: Dictionary = dialogues[current_dialogue_index]
 	var speaker: String = str(entry.get("speaker", ""))
 	var text: String = str(entry.get("text", ""))

@@ -4,11 +4,15 @@ class_name PixelHeartDisplay
 @export_range(16, 96, 1) var grid_resolution: int = 54
 @export_range(0.005, 0.060, 0.001) var divider_thickness: float = 0.018
 
-@export var ira_color: Color = Color(0.87, 0.22, 0.20, 1.0)
-@export var pereza_color: Color = Color(0.96, 0.68, 0.24, 1.0)
-@export var gula_color: Color = Color(0.29, 0.72, 0.85, 1.0)
-@export var soberbia_color: Color = Color(0.74, 0.39, 0.82, 1.0)
-@export var empty_color: Color = Color(0.16, 0.10, 0.10, 1.0)
+# Pure (sin == 0) tint per quadrant. The heart starts fully red and bright.
+@export var ira_pure_color: Color = Color(0.95, 0.18, 0.18, 1.0)
+@export var pereza_pure_color: Color = Color(0.95, 0.20, 0.22, 1.0)
+@export var gula_pure_color: Color = Color(0.95, 0.18, 0.18, 1.0)
+@export var soberbia_pure_color: Color = Color(0.95, 0.20, 0.22, 1.0)
+
+# Color the section drifts toward as the corresponding sin grows.
+@export var corrupt_color: Color = Color(0.18, 0.06, 0.22, 1.0)
+@export var empty_color: Color = Color(0.06, 0.03, 0.08, 1.0)
 @export var outline_color: Color = Color(0.98, 0.93, 0.89, 0.95)
 @export var divider_color: Color = Color(1.00, 0.97, 0.92, 1.0)
 
@@ -51,27 +55,34 @@ func _draw() -> void:
 
 
 func _cell_color(uv: Vector2) -> Color:
-	var metric := 0.0
-	var tint := empty_color
+	var sin_amount := 0.0
+	var pure_tint := ira_pure_color
 
 	# Top-left: Ira | Bottom-left: Pereza | Top-right: Gula | Bottom-right: Soberbia
 	if uv.x < 0.5 and uv.y < 0.5:
-		metric = _ira
-		tint = ira_color
+		sin_amount = _ira
+		pure_tint = ira_pure_color
 	elif uv.x < 0.5 and uv.y >= 0.5:
-		metric = _pereza
-		tint = pereza_color
+		sin_amount = _pereza
+		pure_tint = pereza_pure_color
 	elif uv.x >= 0.5 and uv.y < 0.5:
-		metric = _gula
-		tint = gula_color
+		sin_amount = _gula
+		pure_tint = gula_pure_color
 	else:
-		metric = _soberbia
-		tint = soberbia_color
+		sin_amount = _soberbia
+		pure_tint = soberbia_pure_color
+
+	# Higher sin -> less fill (purity drives the visible height of the section).
+	var purity := 1.0 - sin_amount
 
 	var local_quad_uv := Vector2(_quad_coord(uv.x), _quad_coord(uv.y))
 	var height_from_bottom := 1.0 - local_quad_uv.y
-	if metric >= height_from_bottom:
-		return tint
+
+	if purity >= height_from_bottom:
+		# Tint shifts from bright red (pure) to dark purple (corrupted), and dims with sin.
+		var blended := pure_tint.lerp(corrupt_color, sin_amount)
+		var brightness := lerpf(0.35, 1.0, purity)
+		return Color(blended.r * brightness, blended.g * brightness, blended.b * brightness, 1.0)
 	return empty_color
 
 

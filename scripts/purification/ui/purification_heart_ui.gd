@@ -7,6 +7,11 @@ const PixelHeartDisplay := preload("res://scripts/purification/ui/pixel_heart_di
 @export_range(0.05, 2.0, 0.01) var poll_interval: float = 0.20
 
 @onready var heart_fill: Control = $Panel/Margin/VBox/HeartFill
+@onready var title_label: Label = $Panel/Margin/VBox/Title
+@onready var ira_text: Label = $Panel/Margin/VBox/Stats/IraText
+@onready var pereza_text: Label = $Panel/Margin/VBox/Stats/PerezaText
+@onready var gula_text: Label = $Panel/Margin/VBox/Stats/GulaText
+@onready var soberbia_text: Label = $Panel/Margin/VBox/Stats/SoberbiaText
 @onready var ira_value: Label = $Panel/Margin/VBox/Stats/IraValue
 @onready var pereza_value: Label = $Panel/Margin/VBox/Stats/PerezaValue
 @onready var gula_value: Label = $Panel/Margin/VBox/Stats/GulaValue
@@ -17,11 +22,26 @@ var _time_since_poll := 0.0
 
 
 func _ready() -> void:
+	GameLocale.load_language()
+	_apply_translations()
 	_manager = get_node_or_null("/root/PurificationManager")
 	if _manager and _manager.has_signal("metrics_changed"):
 		_manager.metrics_changed.connect(_on_metrics_changed)
 	_ensure_shader_defaults()
 	_refresh_from_manager()
+
+
+func _apply_translations() -> void:
+	if title_label:
+		title_label.text = GameLocale.t("heart.title")
+	if ira_text:
+		ira_text.text = GameLocale.t("heart.ira")
+	if pereza_text:
+		pereza_text.text = GameLocale.t("heart.pereza")
+	if gula_text:
+		gula_text.text = GameLocale.t("heart.gula")
+	if soberbia_text:
+		soberbia_text.text = GameLocale.t("heart.soberbia")
 
 
 func _process(delta: float) -> void:

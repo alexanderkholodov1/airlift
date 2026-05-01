@@ -4,22 +4,53 @@ class_name DeathScreenUI
 signal retry_requested
 signal exit_requested
 
+const MAIN_MENU_SCENE := "res://scenes/Main_Scene.tscn"
+const MENU_CREDITS_SCENE := "res://scenes/ui/menu_credits.tscn"
+
 @onready var title_label: Label = $Root/MainPanel/Margin/VBox/Title
 @onready var reason_label: Label = $Root/MainPanel/Margin/VBox/Reason
 @onready var retry_button: Button = $Root/MainPanel/Margin/VBox/ButtonRow/RetryButton
 @onready var exit_button: Button = $Root/MainPanel/Margin/VBox/ButtonRow/ExitButton
+@onready var hint_label: Label = $Root/MainPanel/Margin/VBox/Hint
 @onready var graph: Node = $Root/MainPanel/Margin/VBox/Body/GraphPanel/GraphAnchor/PurificationDecisionGraph
 
-var _death_reason: String = "Te consumio la oscuridad"
+var _death_reason_key: String = "death.reason_default"
+var _death_reason_override: String = ""
 var _origin_scene_name: String = ""
+var _is_ending: bool = false
 
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	GameLocale.load_language()
+	_is_ending = _detect_ending_mode()
+	_apply_translations()
 	_apply_end_state_if_available()
 	_bind_buttons()
 	_update_reason_label()
 	_populate_graph_from_purification()
+
+
+func _detect_ending_mode() -> bool:
+	if EndRunState.ending_name != "":
+		return true
+	var tree := get_tree()
+	if tree != null and tree.current_scene != null:
+		return tree.current_scene.scene_file_path == "res://scenes/credits.tscn"
+	return false
+
+
+func _apply_translations() -> void:
+	if _is_ending:
+		title_label.text = GameLocale.t("ending.title_prefix")
+		retry_button.text = GameLocale.t("ending.view_credits")
+		exit_button.text = GameLocale.t("ending.main_menu")
+		hint_label.text = GameLocale.t("ending.hint")
+	else:
+		title_label.text = GameLocale.t("death.title")
+		retry_button.text = GameLocale.t("death.retry")
+		exit_button.text = GameLocale.t("death.exit")
+		hint_label.text = GameLocale.t("death.hint")
 
 
 func _apply_end_state_if_available() -> void:
@@ -30,12 +61,17 @@ func _apply_end_state_if_available() -> void:
 	if ending.begins_with("FINAL:"):
 		ending = ending.substr(6).strip_edges()
 
-	title_label.text = "TIPO DE FINAL: %s" % ending
-	_death_reason = ending
+	title_label.text = "%s: %s" % [GameLocale.t("ending.title_prefix"), ending]
+	_death_reason_override = ending
 
 
-func set_death_context(reason: String, scene_name: String = "") -> void:
-	_death_reason = reason
+func set_death_context(reason_key: String, scene_name: String = "") -> void:
+	if reason_key.begins_with("death.reason."):
+		_death_reason_key = reason_key
+		_death_reason_override = ""
+	else:
+		_death_reason_key = ""
+		_death_reason_override = reason_key
 	_origin_scene_name = scene_name
 	if is_inside_tree():
 		_update_reason_label()
@@ -49,10 +85,15 @@ func _bind_buttons() -> void:
 
 
 func _update_reason_label() -> void:
+	var reason_text: String = _death_reason_override
+	if reason_text.is_empty() and not _death_reason_key.is_empty():
+		reason_text = GameLocale.t(_death_reason_key)
+
+	var prefix := GameLocale.t("ending.cause_prefix") if _is_ending else GameLocale.t("death.cause_prefix")
 	var scene_suffix := ""
 	if not _origin_scene_name.is_empty():
 		scene_suffix = " / %s" % _origin_scene_name.to_upper()
-	reason_label.text = "CAUSA: %s%s" % [_death_reason.to_upper(), scene_suffix]
+	reason_label.text = "%s: %s%s" % [prefix, reason_text.to_upper(), scene_suffix]
 
 
 func _populate_graph_from_purification() -> void:
@@ -86,10 +127,10 @@ func _build_fallback_decisions(manager: Node) -> Array[Dictionary]:
 		metrics = manager.call("get_metrics")
 
 	return [
-		_metric_to_decision(1, "ira", "Ira", float(metrics.get("ira", 0.0)), "attack_pacifist"),
-		_metric_to_decision(2, "pereza", "Pereza", float(metrics.get("pereza", 0.0)), "ignore_npc_favor"),
-		_metric_to_decision(3, "gula", "Gula", float(metrics.get("gula", 0.0)), "hoard_bricks"),
-		_metric_to_decision(4, "soberbia", "Soberbia", float(metrics.get("soberbia", 0.0)), "ignore_shortcuts_or_defense"),
+		_metric_to_decision(1, "ira", GameLocale.t("heart.ira"), float(metrics.get("ira", 0.0)), "attack_pacifist"),
+		_metric_to_decision(2, "pereza", GameLocale.t("heart.pereza"), float(metrics.get("pereza", 0.0)), "ignore_npc_favor"),
+		_metric_to_decision(3, "gula", GameLocale.t("heart.gula"), float(metrics.get("gula", 0.0)), "hoard_bricks"),
+		_metric_to_decision(4, "soberbia", GameLocale.t("heart.soberbia"), float(metrics.get("soberbia", 0.0)), "ignore_shortcuts_or_defense"),
 	]
 
 
@@ -118,13 +159,33 @@ func _metric_to_decision(id_value: int, key: String, label: String, value: float
 
 
 func _on_retry_pressed() -> void:
+	if _is_ending:
+		_go_to_credits()
+		return
 	retry_requested.emit()
 	queue_free()
 
 
 func _on_exit_pressed() -> void:
-	exit_requested.emit()
-	queue_free()
+	_go_to_main_menu()
+
+
+func _go_to_credits() -> void:
+	var flow := get_node_or_null("/root/GameFlow")
+	if flow != null and flow.has_method("go_to_scene"):
+		flow.call("go_to_scene", MENU_CREDITS_SCENE)
+		return
+	get_tree().change_scene_to_file(MENU_CREDITS_SCENE)
+
+
+func _go_to_main_menu() -> void:
+	var flow := get_node_or_null("/root/GameFlow")
+	if flow != null and flow.has_method("go_to_main_menu"):
+		flow.call("go_to_main_menu")
+		return
+	if EndRunState != null:
+		EndRunState.clear()
+	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
 
 
 func _unhandled_input(event: InputEvent) -> void:

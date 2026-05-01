@@ -51,7 +51,7 @@ func _build_credits_text() -> String:
 	if en:
 		lines.append("[b]Karma System & Game Mechanics[/b]")
 	else:
-		lines.append("[b]Sistema de Karma & Mecánicas de Juego[/b]")
+		lines.append("[b]Sistema de Karma y Mecánicas de Juego[/b]")
 	lines.append("Felipe Bohórquez")
 	lines.append("")
 
@@ -73,9 +73,9 @@ func _build_credits_text() -> String:
 	lines.append("")
 
 	if en:
-		lines.append("[b]Music[/b]")
+		lines.append("[b]External music[/b]")
 	else:
-		lines.append("[b]Música[/b]")
+		lines.append("[b]Música externa[/b]")
 	lines.append("Kevin MacLeod — Heart of the Beast")
 	lines.append("Kevin MacLeod — Penumbra")
 

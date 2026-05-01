@@ -15,9 +15,9 @@ const EVENT_IMPULSES := {
 	"ignore_npc_favor": {"ira": 0.9, "pereza": 6.8, "gula": 0.2, "soberbia": 0.8},
 	"hoard_bricks": {"ira": 0.4, "pereza": 1.2, "gula": 7.4, "soberbia": 0.9},
 	"ignore_shortcuts_or_defense": {"ira": 1.1, "pereza": 0.7, "gula": 0.2, "soberbia": 7.1},
-	"help_npc": {"ira": 1.5, "pereza": 3.6, "gula": 0.6, "soberbia": 0.8},
-	"spare_pacifist": {"ira": 3.9, "pereza": 0.3, "gula": 0.4, "soberbia": 0.4},
-	"use_bricks_creatively": {"ira": 0.6, "pereza": 1.1, "gula": 3.8, "soberbia": 2.5},
+	"help_npc": {"ira": 1.8, "pereza": 4.2, "gula": 0.6, "soberbia": 2.1},
+	"spare_pacifist": {"ira": 4.5, "pereza": 2.6, "gula": 0.4, "soberbia": 2.4},
+	"use_bricks_creatively": {"ira": 1.2, "pereza": 1.5, "gula": 3.8, "soberbia": 2.5},
 }
 
 # Row-stochastic transition graph between sins.
@@ -91,6 +91,8 @@ func ingest_game_signal(signal_name: String, payload: Dictionary = {}) -> void:
 			register_help_npc(clampf(0.45 + float(cables) * 0.2, 0.45, 2.0))
 		"boss_defeated_pacifist":
 			register_spare_pacifist(2.4)
+			register_help_npc(2.4)
+			register_use_bricks_creatively(1.6)
 		"limbo_enemy_killed":
 			_register_limbo_enemy_resolution("killed")
 		"limbo_enemy_spared":
